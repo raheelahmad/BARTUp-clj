@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"log"
 	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 
 	"encoding/json"
 	"net/http"
@@ -23,7 +24,7 @@ func Stations(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	jsonBody, _ := json.Marshal(allStations)
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonBody)
+	_, _ = w.Write(jsonBody)
 }
 
 // ETDHandler gets ETDs for lat/long
@@ -36,6 +37,21 @@ func ETDHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 	station := closestStation(lat, long, stations)
+	etdResponseForStation(station, w)
+}
+
+// StationETDHandler station ETD handler
+func StationETDHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	abbr := ps.ByName("station-abbr")
+	station, err := stationForName(abbr)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	etdResponseForStation(*station, w)
+}
+
+func etdResponseForStation(station Station, w http.ResponseWriter) {
 	etdInfo, err := GetETDs(station)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -43,13 +59,14 @@ func ETDHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	}
 	jsonBody, _ := json.Marshal(etdInfo)
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonBody)
+	_, _ = w.Write(jsonBody)
 }
 
 func main() {
 	router := httprouter.New()
 	router.GET("/", Index)
 	router.GET("/etd/:lat/:long", ETDHandler)
+	router.GET("/station-etd/:station-abbr", StationETDHandler)
 	router.GET("/stations", Stations)
 
 	log.Fatal(http.ListenAndServe(":8080", router))

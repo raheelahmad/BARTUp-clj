@@ -23,6 +23,13 @@ func TestETDs(t *testing.T) {
 	}
 }
 
+func TestStationForName(t *testing.T) {
+	station, err := stationForName("UCTY")
+	if err != nil || station == nil || station.Abbr != "UCTY" {
+		t.Error("Could not fetch station by name")
+	}
+}
+
 func getXML() []byte {
 	data, _ := ioutil.ReadFile("./etds.xml")
 	return data

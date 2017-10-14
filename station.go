@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"errors"
 	"sort"
 )
 
@@ -36,4 +37,18 @@ func closestStation(lat float64, long float64, stations []Station) Station {
 		return di < dj
 	})
 	return stations[0]
+}
+
+// stationForName(name string) station for given name
+func stationForName(name string) (*Station, error) {
+	stations, err := GetStations()
+	if err != nil {
+		return nil, err
+	}
+	for _, station := range stations {
+		if station.Abbr == name {
+			return &station, nil
+		}
+	}
+	return nil, errors.New("Couldn't find station")
 }

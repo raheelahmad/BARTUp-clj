@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
@@ -32,8 +31,6 @@ func GetETDs(station Station) (*ETDStationInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	jsonBody, _ := json.Marshal(data)
-	fmt.Println(string(jsonBody))
 	return &data.ETDs, nil
 }
 
