@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"sort"
 )
 
 // Station The station
@@ -25,4 +26,14 @@ type AllStations struct {
 type AllStationsData struct {
 	XMLName      xml.Name    `xml:"root" json:"-"`
 	StationsRoot AllStations `xml:"stations" json:"root"`
+}
+
+// closestStation station closest to lat long
+func closestStation(lat float64, long float64, stations []Station) Station {
+	sort.Slice(stations, func(i, j int) bool {
+		di := distance(lat, long, stations[i].Latitude, stations[i].Longitude)
+		dj := distance(lat, long, stations[j].Latitude, stations[j].Longitude)
+		return di < dj
+	})
+	return stations[0]
 }

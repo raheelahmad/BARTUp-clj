@@ -22,7 +22,6 @@ func GetETDs(station Station) (*ETDStationInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -40,22 +39,25 @@ func GetETDs(station Station) (*ETDStationInfo, error) {
 
 // GetStations Get stations
 func GetStations() ([]Station, error) {
-	resp, err := http.Get("https://api.bart.gov/api/stn.aspx?cmd=stns&key=RLK2-XZYL-QHJQ-4YR8")
-	if err != nil {
-		return nil, err
+	bytes, err := ioutil.ReadFile("stations.dat")
+	if err != nil || len(bytes) == 0 {
+		fmt.Println("No stations XML file on disk; fetching...")
+		resp, err := http.Get("https://api.bart.gov/api/stn.aspx?cmd=stns&key=RLK2-XZYL-QHJQ-4YR8")
+		if err != nil {
+			return nil, err
+		}
+		bytes, err = ioutil.ReadAll(resp.Body)
+		err = ioutil.WriteFile("stations.dat", bytes, 0644)
+		if err != nil {
+			fmt.Println("Error writing to stations: ", err)
+		}
 	}
-	defer resp.Body.Close()
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
+
+	var data AllStationsData
+	err = xml.Unmarshal(bytes, &data)
 	if err != nil {
 		return nil, err
 	}
 
-	var data AllStationsData
-	err = xml.Unmarshal(bodyBytes, &data)
-	if err != nil {
-		return nil, err
-	}
 	return data.StationsRoot.Stations, nil
-	// jsonBody, _ := json.Marshal(data)
-	// fmt.Println(string(jsonBody))
 }
