@@ -11,13 +11,14 @@
   (ajax/GET (str "/etd/" lat "/" long)
             {:response-format (ajax/json-response-format {:keywords? true})
              :handler (fn [response]
+                        (println response)
                         (reset! nearest-station-etds response)
                         )}))
 
 (defn show-nearest-etd []
   (location/get-location
-   (fn [found-station]
-     (let [coords (.-coords found-station)
+   (fn [found-station-coords]
+     (let [coords (.-coords found-station-coords)
            lat (.-latitude coords) long (.-longitude coords)]
        (js/setInterval #(fetch-etd lat long) etd-refresh-interval)
        (fetch-etd lat long)

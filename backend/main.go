@@ -59,12 +59,14 @@ func etdResponseForStation(station Station, w http.ResponseWriter) {
 
 func main() {
 	router := httprouter.New()
+
+	// Endpoints
 	router.GET("/etd/:lat/:long", ETDHandler)
 	router.GET("/station-etd/:station-abbr", StationETDHandler)
 	router.GET("/stations", Stations)
 
 	/*
-		Serve these from the target dir, which is an artifact of boot's target step.
+		Serve these statics from the target dir, which is an artifact of boot's target step.
 		Boot compiles the target directory out of resources/.
 		Both target/ and resources/ should be identical, except for the .js files produced by the cljs step.
 		For production, we could change these to serve from /resources instead (target/ is not under version control).

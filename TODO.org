@@ -1,0 +1,6 @@
+* Tasks
+** TODO hook up with the new JSON
+   - format etd response in to :station & :etds
+** TODO get CIDER repl to work
+** TODO show options to choose a station instead
+** TODO when can't get location, show station chooser gracefully + warning message

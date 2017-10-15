@@ -18,7 +18,7 @@
  '[adzerk.boot-reload    :refer [reload]]
  '[pandeiro.boot-http    :refer [serve]])
 
-(deftask dev-mine
+(deftask dev
   []
   (comp
    (watch)
