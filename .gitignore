@@ -2,3 +2,5 @@ stations.dat
 target
 out/
 app.out/
+a.out
+.nrepl*

@@ -11,11 +11,6 @@ import (
 	"net/http"
 )
 
-// Index root handler
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprintf(w, "Welcome\n")
-}
-
 // Stations all stations
 func Stations(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	allStations, err := GetStations()
@@ -62,12 +57,19 @@ func etdResponseForStation(station Station, w http.ResponseWriter) {
 	_, _ = w.Write(jsonBody)
 }
 
+// Index root handler
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	http.ServeFile(w, r, "target/index.html")
+}
+
 func main() {
 	router := httprouter.New()
-	router.GET("/", Index)
 	router.GET("/etd/:lat/:long", ETDHandler)
 	router.GET("/station-etd/:station-abbr", StationETDHandler)
 	router.GET("/stations", Stations)
+	router.GET("/", Index)
+	router.ServeFiles("/js/*filepath", http.Dir("target/js"))
+	router.ServeFiles("/css/*filepath", http.Dir("target/css"))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
