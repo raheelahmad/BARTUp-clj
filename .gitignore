@@ -4,3 +4,5 @@ out/
 app.out/
 a.out
 .nrepl*
+.cljs*
+*.log

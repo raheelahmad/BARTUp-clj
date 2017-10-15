@@ -73,10 +73,10 @@ func main() {
 		Then production build step needs to copy over *.js to resources/
 	*/
 	router.GET("/", func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		http.ServeFile(w, r, "target/index.html")
+		http.ServeFile(w, r, "resources/public/index.html")
 	})
-	router.ServeFiles("/js/*filepath", http.Dir("target/js"))
-	router.ServeFiles("/css/*filepath", http.Dir("target/css"))
+	router.ServeFiles("/js/*filepath", http.Dir("resources/public/js"))
+	router.ServeFiles("/css/*filepath", http.Dir("resources/public/css"))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
