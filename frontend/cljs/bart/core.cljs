@@ -26,7 +26,7 @@
 
 (defn root []
   [:div
-   [:h1 {:class "title"} "BART Departures near you"]
+   [:h1 {:class "title"} "BART Departures near you!"]
    (if-let [etds-info @nearest-station-etds]
      [:div
       [etds/station-comp (:station etds-info)]

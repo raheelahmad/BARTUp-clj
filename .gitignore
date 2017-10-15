@@ -1,2 +1,4 @@
-bartup
 stations.dat
+target
+out/
+app.out/

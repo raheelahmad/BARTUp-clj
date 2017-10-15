@@ -1,0 +1,3 @@
+{:require  [bart.core]
+ :init-fns [bart.core/init]
+ :compiler-options {:asset-path "js/app.out"}}
