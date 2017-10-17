@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"math"
 	"testing"
+
+	. "github.com/franela/goblin"
 )
 
 func TestDistance(t *testing.T) {
@@ -28,6 +30,54 @@ func TestStationForName(t *testing.T) {
 	if err != nil || station == nil || station.Abbr != "UCTY" {
 		t.Error("Could not fetch station by name")
 	}
+}
+
+func TestETDResponse(t *testing.T) {
+	etdWSP := ETD{Destination: "Warm Springs", Abbreviation: "WSP", Estimates: []Estimate{
+		Estimate{Minutes: "23", Direction: "South"},
+		Estimate{Minutes: "31", Direction: "South"},
+	}}
+	etdDLY := ETD{Destination: "Daly City", Abbreviation: "DLY", Estimates: []Estimate{
+		Estimate{Minutes: "11", Direction: "North"},
+		Estimate{Minutes: "20", Direction: "North"},
+	}}
+	etdRCHMND := ETD{Destination: "Richmond", Abbreviation: "RCHMND", Estimates: []Estimate{
+		Estimate{Minutes: "Leaving", Direction: "North"},
+		Estimate{Minutes: "10", Direction: "North"},
+	}}
+	etds := []ETD{etdWSP, etdDLY, etdRCHMND}
+	etdInfo := ETDStationInfo{Name: "Union City", Abbr: "UCTY", ETDs: etds}
+	etdResponse := NewETDResponse(etdInfo)
+
+	g := Goblin(t)
+	g.Describe("ETD Response", func() {
+		g.Describe("Station Info", func() {
+			g.It("should have correct station name", func() {
+				g.Assert(etdResponse.Station.Name).Equal("Union City")
+			})
+			g.It("should have correct station abbreviation", func() {
+				g.Assert(etdResponse.Station.Abbr).Equal("UCTY")
+			})
+		})
+		g.Describe("ETDs Info", func() {
+			g.It("should have correct number of ETDs", func() {
+				g.Assert(len(etdResponse.LineETDs)).Equal(3)
+			})
+			g.It("should order by earliest ETD", func() {
+				firstETD := etdResponse.LineETDs[0]
+				secondETD := etdResponse.LineETDs[1]
+				thirdETD := etdResponse.LineETDs[2]
+				g.Assert(firstETD.Destination).Equal("Richmond")
+				g.Assert(secondETD.Destination).Equal("Daly City")
+				g.Assert(thirdETD.Destination).Equal("Warm Springs")
+			})
+			g.It("should have correct estimates", func() {
+				firstETD := etdResponse.LineETDs[0]
+				g.Assert(firstETD.Minutes[0]).Equal("Leaving")
+				g.Assert(firstETD.Minutes[1]).Equal("10")
+			})
+		})
+	})
 }
 
 func getXML() []byte {

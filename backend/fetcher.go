@@ -14,7 +14,7 @@ func StationETDURL(station Station) string {
 }
 
 // GetETDs get ETDs for the station
-func GetETDs(station Station) (*ETDStationInfo, error) {
+func GetETDs(station Station) (*ETDResponse, error) {
 	URL := StationETDURL(station)
 
 	resp, err := http.Get(URL)
@@ -31,7 +31,7 @@ func GetETDs(station Station) (*ETDStationInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &data.ETDs, nil
+	return NewETDResponse(data.ETDs), nil
 }
 
 // GetStations Get stations

@@ -65,13 +65,6 @@ func main() {
 	router.GET("/station-etd/:station-abbr", StationETDHandler)
 	router.GET("/stations", Stations)
 
-	/*
-		Serve these statics from the target dir, which is an artifact of boot's target step.
-		Boot compiles the target directory out of resources/.
-		Both target/ and resources/ should be identical, except for the .js files produced by the cljs step.
-		For production, we could change these to serve from /resources instead (target/ is not under version control).
-		Then production build step needs to copy over *.js to resources/
-	*/
 	router.GET("/", func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		http.ServeFile(w, r, "resources/public/index.html")
 	})

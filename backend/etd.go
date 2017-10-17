@@ -2,6 +2,9 @@ package main
 
 import (
 	"encoding/xml"
+
+	"sort"
+	"strconv"
 )
 
 // Estimate the estimate
@@ -32,4 +35,52 @@ type ETDStationInfo struct {
 type AllETDsData struct {
 	XMLName xml.Name       `xml:"root" json:"root"`
 	ETDs    ETDStationInfo `xml:"station" json:"station"`
+}
+
+// --- Response ---
+
+// StationJ for JSON
+type StationJ struct {
+	Name string `json:"name"`
+	Abbr string `json:"abbr"`
+}
+
+// LineETDJ for JSON
+type LineETDJ struct {
+	Destination string   `json:"destination"`
+	Minutes     []string `json:"minutes"`
+}
+
+// ETDResponse JSON response wrapper for ETD
+type ETDResponse struct {
+	Station  StationJ   `json:"station"`
+	LineETDs []LineETDJ `json:"etds"`
+}
+
+// NewETDResponse init for ETDResponse
+func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
+	etds := []LineETDJ{}
+	for _, etd := range etdInfo.ETDs {
+		estimates := []string{}
+		for _, estimate := range etd.Estimates {
+			estimates = append(estimates, estimate.Minutes)
+		}
+		etds = append(etds, LineETDJ{Destination: etd.Destination, Minutes: estimates})
+	}
+	sort.Slice(etds, func(i, j int) bool {
+		if etds[i].Minutes[0] == "Leaving" {
+			return true
+		}
+		if etds[j].Minutes[0] == "Leaving" {
+			return false
+		}
+		iFirstMinuteStr, _ := strconv.ParseInt(etds[i].Minutes[0], 10, 32)
+		jFirstMinuteStr, _ := strconv.ParseInt(etds[j].Minutes[0], 10, 32)
+		return iFirstMinuteStr < jFirstMinuteStr
+	})
+
+	return &ETDResponse{
+		Station:  StationJ{Name: etdInfo.Name, Abbr: etdInfo.Abbr},
+		LineETDs: etds,
+	}
 }
