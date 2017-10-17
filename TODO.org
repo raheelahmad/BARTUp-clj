@@ -1,6 +1,9 @@
 * Tasks
-** TODO hook up with the new JSON
+** DONE hook up with the new JSON
+   CLOSED: [2017-10-17 Tue 00:10]
    - format etd response in to :station & :etds
-** TODO get CIDER repl to work
+** TODO do etd for station (not lat-log), on refreshes
 ** TODO show options to choose a station instead
 ** TODO when can't get location, show station chooser gracefully + warning message
+** DONE get CIDER repl to work
+   CLOSED: [2017-10-15 Sun 19:49]

@@ -11,7 +11,6 @@
   (ajax/GET (str "/etd/" lat "/" long)
             {:response-format (ajax/json-response-format {:keywords? true})
              :handler (fn [response]
-                        (println response)
                         (reset! nearest-station-etds response)
                         )}))
 
@@ -27,7 +26,8 @@
 
 (defn root []
   [:div
-   [:h1 {:class "title"} "BART Departures near you!"]
+   [:h1 {:class "title"} "BART Departures near you"]
+   [:hr]
    (if-let [etds-info @nearest-station-etds]
      [:div
       [etds/station-comp (:station etds-info)]

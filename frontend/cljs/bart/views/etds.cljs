@@ -11,11 +11,11 @@
         ]
     [:li (str name " arrives in " minutes)]))
 
-(defn direction-comp [[direction etds]]
+(defn direction-comp [{:keys [direction lines]}]
   [:div
    [:h4 direction]
    (into [:ul]
-         (map line-comp etds))])
+         (map line-comp lines))])
 
 (defn etds-comp [etds]
   (into [:div]

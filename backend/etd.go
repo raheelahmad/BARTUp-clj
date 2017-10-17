@@ -48,13 +48,20 @@ type StationJ struct {
 // LineETDJ for JSON
 type LineETDJ struct {
 	Destination string   `json:"destination"`
+	Direction   string   `json:"direction"`
 	Minutes     []string `json:"minutes"`
+}
+
+// ByDirectionJ struct
+type ByDirectionJ struct {
+	Direction string     `json:"direction"`
+	Lines     []LineETDJ `json:"lines"`
 }
 
 // ETDResponse JSON response wrapper for ETD
 type ETDResponse struct {
-	Station  StationJ   `json:"station"`
-	LineETDs []LineETDJ `json:"etds"`
+	Station       StationJ       `json:"station"`
+	DirectionETDs []ByDirectionJ `json:"etds"`
 }
 
 // NewETDResponse init for ETDResponse
@@ -65,7 +72,10 @@ func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
 		for _, estimate := range etd.Estimates {
 			estimates = append(estimates, estimate.Minutes)
 		}
-		etds = append(etds, LineETDJ{Destination: etd.Destination, Minutes: estimates})
+		etds = append(etds, LineETDJ{Destination: etd.Destination,
+			Direction: etd.Estimates[0].Direction,
+			Minutes:   estimates,
+		})
 	}
 	sort.Slice(etds, func(i, j int) bool {
 		if etds[i].Minutes[0] == "Leaving" {
@@ -78,9 +88,21 @@ func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
 		jFirstMinuteStr, _ := strconv.ParseInt(etds[j].Minutes[0], 10, 32)
 		return iFirstMinuteStr < jFirstMinuteStr
 	})
+	northLines := []LineETDJ{}
+	southLines := []LineETDJ{}
+	for _, etd := range etds {
+		if etd.Direction == "North" {
+			northLines = append(northLines, etd)
+		} else {
+			southLines = append(southLines, etd)
+		}
+	}
 
 	return &ETDResponse{
-		Station:  StationJ{Name: etdInfo.Name, Abbr: etdInfo.Abbr},
-		LineETDs: etds,
+		Station: StationJ{Name: etdInfo.Name, Abbr: etdInfo.Abbr},
+		DirectionETDs: []ByDirectionJ{
+			ByDirectionJ{Direction: "North", Lines: northLines},
+			ByDirectionJ{Direction: "South", Lines: southLines},
+		},
 	}
 }

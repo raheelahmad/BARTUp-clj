@@ -60,19 +60,21 @@ func TestETDResponse(t *testing.T) {
 			})
 		})
 		g.Describe("ETDs Info", func() {
-			g.It("should have correct number of ETDs", func() {
-				g.Assert(len(etdResponse.LineETDs)).Equal(3)
+			g.It("should have correct number of directions", func() {
+				g.Assert(len(etdResponse.DirectionETDs)).Equal(2)
 			})
 			g.It("should order by earliest ETD", func() {
-				firstETD := etdResponse.LineETDs[0]
-				secondETD := etdResponse.LineETDs[1]
-				thirdETD := etdResponse.LineETDs[2]
+				northLines := etdResponse.DirectionETDs[0]
+				southLines := etdResponse.DirectionETDs[1]
+				firstETD := northLines.Lines[0]
+				secondETD := northLines.Lines[1]
+				thirdETD := southLines.Lines[0]
 				g.Assert(firstETD.Destination).Equal("Richmond")
 				g.Assert(secondETD.Destination).Equal("Daly City")
 				g.Assert(thirdETD.Destination).Equal("Warm Springs")
 			})
 			g.It("should have correct estimates", func() {
-				firstETD := etdResponse.LineETDs[0]
+				firstETD := etdResponse.DirectionETDs[0].Lines[0]
 				g.Assert(firstETD.Minutes[0]).Equal("Leaving")
 				g.Assert(firstETD.Minutes[1]).Equal("10")
 			})
