@@ -2,6 +2,11 @@
   (:require [ajax.core :as ajax]
             [reagent.core :as r]))
 
+(defn etd-station-header
+  "Heading component for a given station"
+  [station]
+  [:div (str "Trains arriving at " (:name station) " station")])
+
 (defn line-comp
   "Component for a single line: an li with the minutes to arrival"
   [line-info]

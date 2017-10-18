@@ -4,4 +4,4 @@
 (def etd-refresh-interval 18000)
 
 (defonce stations (r/atom nil))
-(defonce nearest-station-etds (r/atom nil))
+(defonce station-etds (r/atom nil))
