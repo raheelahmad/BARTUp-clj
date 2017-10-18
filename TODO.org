@@ -2,7 +2,8 @@
 ** DONE hook up with the new JSON
    CLOSED: [2017-10-17 Tue 00:10]
    - format etd response in to :station & :etds
-** TODO do etd for station (not lat-log), on refreshes
+** DONE do etd for station (not lat-log), on refreshes
+   CLOSED: [2017-10-17 Tue 19:46]
 ** TODO show options to choose a station instead
 ** TODO when can't get location, show station chooser gracefully + warning message
 ** DONE get CIDER repl to work
