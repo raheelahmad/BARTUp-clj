@@ -1,21 +1,23 @@
 (ns bart.core
   (:require [reagent.core :as r]
-            [bart.views.etds :as etds]
+            [ajax.core :as ajax]
+
             [bart.utils.location :as location]
-            [ajax.core :as ajax]))
 
-(def etd-refresh-interval 18000)
+            [bart.data.db :as db]
 
-(defonce nearest-station-etds (r/atom nil))
+            [bart.views.etds :as etd-views]
+            [bart.views.stations :as station-views]
+            ))
 
 (def fetch-etd-handler
   {:response-format (ajax/json-response-format {:keywords? true})
    :handler (fn [response]
-              (reset! nearest-station-etds response)
+              (reset! db/nearest-station-etds response)
               )})
 
 (defn fetch-etd [lat long]
-  (if-let [station (get-in @nearest-station-etds [:station :abbr])]
+  (if-let [station (get-in @(db/nearest-station-etds) [:station :abbr])]
     (ajax/GET (str "/station-etd/" station) fetch-etd-handler)
     (ajax/GET (str "/etd/" lat "/" long) fetch-etd-handler)
     ))
@@ -25,20 +27,20 @@
    (fn [found-station-coords]
      (let [coords (.-coords found-station-coords)
            lat (.-latitude coords) long (.-longitude coords)]
-       (js/setInterval #(fetch-etd lat long) etd-refresh-interval)
+       (js/setInterval #(fetch-etd lat long) db/etd-refresh-interval)
        (fetch-etd lat long)
      ))))
 
 
 (defn root []
   [:div
-   [:h1 {:class "title"} "BART Departures near you"]
+   [:h1 {:class "title"} "BART Estimated Time of Departures"]
    [:hr]
-   (if-let [etds-info @nearest-station-etds]
+   (if-let [etds-info @(db/nearest-station-etds)]
      [:div
-      [etds/station-comp (:station etds-info)]
+      [station-views/station-comp (:station etds-info)]
       [:hr]
-      [etds/etds-comp (:etds etds-info)]]
+      [etd-views/etds-comp (:etds etds-info)]]
      [:button {:on-click show-nearest-etd :class "button"} "Departures near me"])])
 
 (defn mount-root []

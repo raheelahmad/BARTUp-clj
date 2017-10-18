@@ -2,10 +2,9 @@
   (:require [ajax.core :as ajax]
             [reagent.core :as r]))
 
-(defn station-comp [station]
-  [:div (str "You are at the " (:name station) " station!")])
-
-(defn line-comp [line-info]
+(defn line-comp
+  "Component for a single line: an li with the minutes to arrival"
+  [line-info]
   (let [name (:destination line-info)
         minutes (apply str (interpose ", " (:minutes line-info)))
         ]
