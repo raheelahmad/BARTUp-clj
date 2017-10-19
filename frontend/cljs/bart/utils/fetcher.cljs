@@ -21,7 +21,8 @@
     (ajax/GET (str "/etd/" lat "/" long) fetch-etd-handler)
     ))
 
-(defn show-nearest-etd []
+(defn fetch-nearest-etd []
+  (reset! db/station-etds nil)
   (location/get-location
    (fn [found-station-coords]
      (let [coords (.-coords found-station-coords)
