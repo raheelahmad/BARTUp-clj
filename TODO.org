@@ -1,7 +1,8 @@
 * Tasks
 ** WORKING-ON show options to choose a station instead
-*** TODO show all stations in a chooser
-*** TODO make a choice between station-chooser / nearest station
+*** DONE show all stations in a chooser
+    CLOSED: [2017-10-18 Wed 07:57]
+*** WORKING-ON make a choice between station-chooser / nearest station
 ** TODO when can't get location, show station chooser gracefully + warning message
 ** DONE do etd for station (not lat-log), on refreshes
    CLOSED: [2017-10-17 Tue 19:46]

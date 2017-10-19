@@ -9,13 +9,14 @@
 
 (defn station-select-option
   [station]
-  (let [name (:name station)]
-    [:option {:value name} name]))
+  (let [name (:name station)
+        abbr (:abbreviation station)]
+    [:option {:value abbr} name]))
 
 (defn stations-input
   []
   (into
-   [:select]
+   [:select {:on-change #(fetcher/fetch-station-etd (-> % .-target .-value))}]
    (if-let [stations @db/stations]
      (map station-select-option stations)
      [:option {:value "-"} "-"]
