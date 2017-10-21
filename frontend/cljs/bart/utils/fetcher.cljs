@@ -7,21 +7,24 @@
 (def fetch-etd-handler
   {:response-format (ajax/json-response-format {:keywords? true})
    :handler (fn [response]
+              (reset! db/refreshing-etds false)
               (reset! db/station-etds response)
               )})
 
 (defn fetch-station-etd [station-abbr]
   (reset! db/source-choice :by-station-abbr)
+  (reset! db/refreshing-etds true)
   (ajax/GET (str "/station-etd/" station-abbr) fetch-etd-handler)
   )
 
 (defn fetch-location-etd [lat long]
-  (if-let [station (get-in @db/station-etds [:station :abbr])]
+  (if-let [station (db/nearest-station-abbr)]
     (ajax/GET (str "/station-etd/" station) fetch-etd-handler)
     (ajax/GET (str "/etd/" lat "/" long) fetch-etd-handler)
     ))
 
 (defn fetch-nearest-etd []
+  (reset! db/refreshing-etds true)
   (reset! db/station-etds nil)
   (location/get-location
    (fn [found-station-coords]

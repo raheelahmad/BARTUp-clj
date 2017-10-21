@@ -1,6 +1,7 @@
 (ns bart.views.etds
   (:require [ajax.core :as ajax]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [bart.data.db :as db]))
 
 (defn etd-station-header
   "Heading component for a given station"
@@ -21,7 +22,13 @@
    (into [:ul]
          (map line-comp lines))])
 
-(defn etds-comp [etds]
+(defn line-etds-comp [etds]
   (into [:div]
         (map direction-comp etds)))
+
+(defn etds-comp
+  [etds-info]
+  [:div
+   [etd-station-header (:station etds-info)]
+   [line-etds-comp (:etds etds-info)]])
 

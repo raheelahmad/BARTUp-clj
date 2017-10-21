@@ -3,7 +3,7 @@
             [bart.data.db :as db]))
 
 (defn checked []
-  [:span {:class "horizontal-spacer"} "☀︎️︎"]
+  [:span {:class "horizontal-spacer" :style {:color "steelblue"}} "•"]
   )
 
 ;; -- Component for nearest station selector
@@ -11,7 +11,7 @@
   []
   [:div
    [:button {:on-click fetcher/fetch-nearest-etd
-             :class "button is-info"} "Departures near me!"]
+             :class "button"} "Departures near me!"]
    (if (db/is-by-nearest) [checked])
    ])
 
@@ -43,7 +43,7 @@
   []
   [:div
    [by-station-nearest]
-   [:div {:class "vertical-spacer"} "OR"]
+   [:div {:class ".or-separator"} "OR"]
    [by-stations-input]
    ]
   )

@@ -13,11 +13,12 @@
    [suppl-views/header-comp]
    [station-views/stations-choice-comp]
    [:hr]
-   (if-let [etds-info @db/station-etds]
-     [:div
-      [etd-views/etd-station-header (:station etds-info)]
-      [etd-views/etds-comp (:etds etds-info)]]
-     )])
+
+   (if @db/refreshing-etds
+     [suppl-views/loading]
+     (if-let [etds-info @db/station-etds]
+       [etd-views/etds-comp etds-info]
+       ))])
 
 (defn mount-root []
   (r/render [root] (.getElementById js/document "app")))
