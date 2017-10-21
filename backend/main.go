@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/urfave/negroni"
 
 	"encoding/json"
 	"net/http"
@@ -71,5 +71,8 @@ func main() {
 	router.ServeFiles("/js/*filepath", http.Dir("resources/public/js"))
 	router.ServeFiles("/css/*filepath", http.Dir("resources/public/css"))
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	n := negroni.Classic()
+	n.UseHandler(router)
+
+	http.ListenAndServe(":8080", n)
 }

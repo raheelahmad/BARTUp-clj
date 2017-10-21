@@ -43,7 +43,7 @@
   []
   [:div
    [by-station-nearest]
-   [:div {:class ".or-separator"} "OR"]
+   [:div {:class "or-separator"} "OR"]
    [by-stations-input]
    ]
   )
