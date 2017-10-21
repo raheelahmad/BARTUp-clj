@@ -1,7 +1,8 @@
 (ns bart.views.etds
   (:require [ajax.core :as ajax]
             [reagent.core :as r]
-            [bart.data.db :as db]))
+            [bart.data.db :as db]
+            [bart.views.timeline :as timeline]))
 
 (defn etd-station-header
   "Heading component for a given station"
@@ -16,19 +17,28 @@
         ]
     [:li (str name " arrives in " minutes)]))
 
-(defn direction-comp [{:keys [direction lines]}]
+(defn direction-comp
+  "Component for all lines going in a direction"
+  [{:keys [direction lines]}]
   [:div
    [:h4 direction]
    (into [:ul]
          (map line-comp lines))])
 
-(defn line-etds-comp [etds]
-  (into [:div]
-        (map direction-comp etds)))
+(defn etds-listing-comp [etds-info]
+  "Component for all the listed ETDs"
+  [:div {:class "column"}
+   [:h2 "Listing"]
+   [etd-station-header (:station etds-info)]
+   (into [:div]
+         (map direction-comp (:etds etds-info)))
+   ])
 
 (defn etds-comp
   [etds-info]
-  [:div
-   [etd-station-header (:station etds-info)]
-   [line-etds-comp (:etds etds-info)]])
+  [:div {:class "columns"}
+   [etds-listing-comp etds-info]
+   [timeline/timeline]
+   ]
+  )
 

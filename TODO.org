@@ -1,4 +1,9 @@
 * Tasks
+** New Layout
+*** WORKING-ON set up horizontal container
+*** TODO set up timeline & list in columns
+** Timeline
+*** TODO read up on [[https://gadfly361.github.io/gadfly-blog/posts-output/2016-10-22-d3-in-reagent/][D3 in Reagent]]
 ** TODO when can't get location, show station chooser gracefully + warning message
 ** DONE show options to choose a station instead
    CLOSED: [2017-10-20 Fri 22:25]

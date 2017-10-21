@@ -6,7 +6,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.854"]
                  [reagent "0.7.0"]
-                 [cljs-ajax "0.7.2"]]
+                 [cljs-ajax "0.7.2"]
+                 [cljsjs/d3 "4.3.0-5"]]
 
   :min-lein-version "2.7.1"
 
