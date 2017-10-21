@@ -1,7 +1,10 @@
 * Tasks
 ** WORKING-ON show options to choose a station instead
-*** TODO show the 3 components always: header-comp, choice-comp, etds-comp
-*** TODO show either one as highlighted
+*** DONE show either one as highlighted
+    CLOSED: [2017-10-20 Fri 07:09]
+*** TODO show loading indicator while fetching
+*** DONE show the 3 components always: header-comp, choice-comp, etds-comp
+    CLOSED: [2017-10-19 Thu 07:51]
 *** DONE make a choice between station-chooser / nearest station
     CLOSED: [2017-10-19 Thu 07:28]
 *** DONE show all stations in a chooser

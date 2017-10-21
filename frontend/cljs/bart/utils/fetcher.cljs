@@ -27,7 +27,7 @@
    (fn [found-station-coords]
      (let [coords (.-coords found-station-coords)
            lat (.-latitude coords) long (.-longitude coords)]
-       (reset! db/source-choice :nearest)
+       (reset! db/source-choice :by-nearest)
        (js/setInterval #(fetch-location-etd lat long) db/etd-refresh-interval)
        (fetch-location-etd lat long)
        ))))
