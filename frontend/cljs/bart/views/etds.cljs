@@ -37,8 +37,8 @@
 (defn etds-comp
   [etds-info]
   [:div {:class "columns"}
-   [etds-listing-comp etds-info]
    [timeline/timeline]
+   [etds-listing-comp etds-info]
    ]
   )
 
