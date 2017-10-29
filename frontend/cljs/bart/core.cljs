@@ -18,10 +18,8 @@
    (if @db/refreshing-etds
      ; Either loading indicator (if refreshing) OR ETDs-info
      [suppl-views/loading]
-     (if-let [etds-info @db/station-etds]
-       [etd-views/etds-comp etds-info]
-       ))
-   ])
+     [etd-views/etds-comp]
+       )])
 
 (defn mount-root []
   (r/render [root] (.getElementById js/document "app")))

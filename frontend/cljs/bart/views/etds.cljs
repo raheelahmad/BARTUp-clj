@@ -35,10 +35,11 @@
    ])
 
 (defn etds-comp
-  [etds-info]
-  [:div {:class "columns"}
-   [timeline/timeline]
-   [etds-listing-comp etds-info]
-   ]
+  []
+  (if-let [etds-info @db/station-etds]
+    [:div {:class "columns"}
+     [timeline/timeline etds-info]
+     [etds-listing-comp etds-info]
+     ])
   )
 

@@ -4,10 +4,11 @@
 (def etd-refresh-interval 30000)
 (def refreshing-etds (r/atom false))
 
+;; The three states
 (defonce stations (r/atom nil))
 (defonce station-etds (r/atom nil))
-
 (defonce source-choice (r/atom nil))
+
 (defn is-by-station-abbr []
   (= @source-choice :by-station-abbr))
 
