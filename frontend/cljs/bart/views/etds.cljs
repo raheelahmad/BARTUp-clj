@@ -2,7 +2,7 @@
   (:require [ajax.core :as ajax]
             [reagent.core :as r]
             [bart.data.db :as db]
-            [bart.views.timeline :as timeline]))
+            [bart.views.viz.timeline :as timeline]))
 
 (defn etd-station-header
   "Heading component for a given station"

@@ -6,7 +6,6 @@
             [bart.views.suppl :as suppl-views]
             [bart.views.etds :as etd-views]
             [bart.views.stations :as station-views]
-            [bart.views.timeline :as timeline]
             ))
 
 (defn root []

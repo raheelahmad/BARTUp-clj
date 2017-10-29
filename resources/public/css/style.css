@@ -7,8 +7,12 @@
   margin-bottom: 10px;
 }
 
-rect {
+circle {
   fill: steelblue;
+}
+
+.minute {
+  font-size: 11px;
 }
 
 .loader {
