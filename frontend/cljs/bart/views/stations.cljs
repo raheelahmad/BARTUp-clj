@@ -10,7 +10,9 @@
 (defn by-station-nearest
   []
   [:div
-   [:button {:on-click fetcher/fetch-nearest-etd
+   [:button {:on-click (fn [e]
+                         (reset! db/refreshing-etds true)
+                         (fetcher/fetch-nearest-etd))
              :class "button"} "Departures near me!"]
    (if (db/is-by-nearest) [checked])
    ])
@@ -28,7 +30,10 @@
     [:div
      [:span {:class "select"}
       (into
-       [:select {:on-change #(fetcher/fetch-station-etd (-> % .-target .-value))
+       [:select {:on-change (fn [e]
+                              (reset! db/refreshing-etds true)
+                              (reset! db/source-choice :by-station-abbr)
+                              (fetcher/fetch-station-etd (-> e .-target .-value)))
                  :value selected}]
        (if-let [stations @db/stations]
          (map station-select-option stations)

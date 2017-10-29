@@ -4,16 +4,26 @@
 
             [ajax.core :as ajax]))
 
+(declare fetch-station-etd)
+
+(defn repeat-if-needed []
+  (if (not @db/repeating)
+    (js/setInterval (fn []
+                      (fetch-station-etd (get-in @db/station-etds [:station :abbr]))
+                      (reset! db/repeating true)
+                      )
+                    db/etd-refresh-interval))
+  )
+
 (def fetch-etd-handler
   {:response-format (ajax/json-response-format {:keywords? true})
    :handler (fn [response]
               (reset! db/refreshing-etds false)
               (reset! db/station-etds response)
+              (repeat-if-needed)
               )})
 
 (defn fetch-station-etd [station-abbr]
-  (reset! db/source-choice :by-station-abbr)
-  (reset! db/refreshing-etds true)
   (ajax/GET (str "/station-etd/" station-abbr) fetch-etd-handler)
   )
 
@@ -24,14 +34,12 @@
     ))
 
 (defn fetch-nearest-etd []
-  (reset! db/refreshing-etds true)
   (reset! db/station-etds nil)
   (location/get-location
    (fn [found-station-coords]
      (let [coords (.-coords found-station-coords)
            lat (.-latitude coords) long (.-longitude coords)]
        (reset! db/source-choice :by-nearest)
-       (js/setInterval #(fetch-location-etd lat long) db/etd-refresh-interval)
        (fetch-location-etd lat long)
        ))))
 

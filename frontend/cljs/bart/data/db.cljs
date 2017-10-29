@@ -4,6 +4,8 @@
 (def etd-refresh-interval 30000)
 (def refreshing-etds (r/atom false))
 
+(def repeating (atom false))
+
 ;; The three states
 (defonce stations (r/atom nil))
 (defonce station-etds (r/atom nil))
