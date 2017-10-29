@@ -40,24 +40,25 @@
   (let [minutes (map :minutes (flatten (north-south-minutes etds)))
         max-minute (apply max minutes)
         min-minute (apply min minutes)
-        height (get-height view-state)]
+        height (get-height view-state)
+        y-buffer 10]
     (-> js/d3
         .scaleLinear
         (.domain #js [min-minute max-minute])
-        (.range #js [0 height])
+        (.range #js [y-buffer (- height y-buffer)])
         )))
 
 (defn timeline-enter [app-state]
   (let [etds (:etds app-state)
         minutes (all-minutes etds)]
     (-> (js/d3.select ".timeline")
-        (.selectAll "rect")
+        (.selectAll "circle")
         (.data (clj->js minutes))
         .enter
-        (.append "rect")
-        (.attr "x" 10)
-        (.attr "height" 5)
-        (.attr "width" 5)
+        (.append "circle")
+        (.attr "cx" 10)
+        (.attr "r" 6)
+        (.style "fill" "steelblue")
         )
     ))
 
@@ -66,8 +67,8 @@
         y-scale (y-range etds view-state)
         data (all-minutes etds)]
     (-> (js/d3.select ".timeline")
-        (.selectAll "rect")
-        (.attr "y" (fn [d _]
+        (.selectAll "circle")
+        (.attr "cy" (fn [d _]
                      (y-scale (.-minutes d))
                      )))))
 
@@ -76,7 +77,7 @@
   (let [etds (:etds app-state)
         data (all-minutes etds)]
     (-> (js/d3.select ".timeline")
-        (.selectAll "rect")
+        (.selectAll "circle")
         (.data (clj->js data))
         .exit
         .remove
