@@ -50,34 +50,48 @@
 
 (defn timeline-enter [app-state]
   (let [etds (:etds app-state)
-        minutes (all-minutes etds)]
-    (-> (js/d3.select ".timeline")
-        (.selectAll "circle")
-        (.data (clj->js minutes))
-        .enter
-        (.append "circle")
-        (.attr "cx" 10)
-        (.attr "r" 6)
-        (.style "fill" "steelblue")
-        )
-    ))
+        minutes (all-minutes etds)
+        entered-gs (-> (js/d3.select ".timeline")
+                       (.selectAll "g.minute")
+                       (.data (clj->js minutes))
+                       .enter
+                       (.append "g")
+                       (.attr "class" "minute"))
+        entered-circles (-> entered-gs
+                            (.append "circle")
+                            (.attr "cx" 10)
+                            (.attr "r" 6)
+                            (.style "fill" "steelblue"))
+        entered-text (-> entered-gs
+                         (.append "text")
+                         (.attr "dx" 19)
+                         (.attr "dy" 5)
+                         )
+        ]
+        ))
 
 (defn timeline-update [app-state view-state]
   (let [etds (:etds app-state)
         y-scale (y-range etds view-state)
-        data (all-minutes etds)]
-    (-> (js/d3.select ".timeline")
-        (.selectAll "circle")
-        (.attr "cy" (fn [d _]
-                     (y-scale (.-minutes d))
-                     )))))
+        data (all-minutes etds)
+        gs (-> (js/d3.select ".timeline")
+               (.selectAll "g.minute"))
+        texts (-> gs (.select "text"))
+        ]
+    (-> gs (.attr "transform"
+                  (fn [d _]
+                    (let [y (y-scale (.-minutes d))]
+                      (str "translate(10, " y ")")))))
+    (-> texts
+        (.text (fn [d] (.-minutes d))))
+        ))
 
 (defn timeline-exit [app-state]
   (println "Exiting timeline")
   (let [etds (:etds app-state)
         data (all-minutes etds)]
-    (-> (js/d3.select ".timeline")
-        (.selectAll "circle")
+    (-> (js/d3.select "g.timeline")
+        (.selectAll "g.minute")
         (.data (clj->js data))
         .exit
         .remove
