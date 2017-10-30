@@ -7,7 +7,10 @@
 (defn etd-station-header
   "Heading component for a given station"
   [station]
-  [:div (str "Trains arriving at " (:name station) " station")])
+  [:div {:class "station-header"}
+   [:span "Trains arriving at "]
+   [:span {:class "station-name"} (:name station)]
+   [:span " station"] ])
 
 (defn line-comp
   "Component for a single line: an li with the minutes to arrival"
@@ -20,7 +23,7 @@
 (defn direction-comp
   "Component for all lines going in a direction"
   [{:keys [direction lines]}]
-  [:div
+  [:div {:class "direction"}
    [:h4 direction]
    (into [:ul]
          (map line-comp lines))])

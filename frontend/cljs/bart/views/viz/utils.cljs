@@ -4,7 +4,7 @@
   (:width state))
 (defn get-height [state]
   (let [width (get-width state)]
-    (* 1.8 width)))
+    (* 1.5 width)))
 
 (defn line-minutes [{:keys [destination minutes direction]}]
   (reduce #(conj %1 {:minutes (if (= direction "South") (- (int %2)) (int %2))
@@ -36,7 +36,7 @@
         y-buffer 10]
     (-> js/d3
         .scaleLinear
-        (.domain #js [min-minute max-minute])
+        (.domain #js [-60 60])
         (.range #js [y-buffer (- height y-buffer)])
         )))
 

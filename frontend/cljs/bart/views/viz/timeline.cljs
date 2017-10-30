@@ -6,7 +6,7 @@
             [bart.views.viz.utils :as utils]))
 
 (defonce viz-state
-  (r/atom {:width 220}))
+  (r/atom {:width 320}))
 
 ;; Timeline-viz
 
@@ -20,6 +20,7 @@
   (-> (js/d3.select ".viz")
       (.append "g")
       (.attr "class" "timeline"))
+  (lifecycle/timeline-mount state @viz-state)
   (timeline-did-update state)
   )
 
@@ -68,7 +69,7 @@
 
 (defn timeline [state]
     (fn [state]
-      [:div {:class "column is-one-third"}
+      [:div {:class "column is-half"}
        [:h2 "Timeline"]
        [viz state]])
     )

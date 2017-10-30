@@ -7,12 +7,48 @@
   margin-bottom: 10px;
 }
 
-circle {
+/* Timeline */
+
+.minute circle {
   fill: steelblue;
 }
 
 .minute {
   font-size: 11px;
+  text-anchor: end;
+}
+
+.line-name {
+  text-anchor: start;
+}
+
+.station-marker circle {
+  fill: #CC9999;
+}
+
+.station-marker line {
+  stroke: #444;
+  stroke-width: 0.5;
+}
+
+.station-marker text {
+  fill: #AAA;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Listing */
+
+.station-name {
+  font-weight: 800;
+}
+
+.station-header {
+  margin-bottom: 20px;
+}
+
+.direction {
+  margin-top: 20px;
 }
 
 .loader {
