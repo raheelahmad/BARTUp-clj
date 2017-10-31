@@ -28,11 +28,8 @@
   (-> etds north-south-minutes flatten))
 
 (defn y-scale
-  [etds view-state]
-  (let [minutes (map :minutes (flatten (north-south-minutes etds)))
-        max-minute (apply max minutes)
-        min-minute (apply min minutes)
-        height (get-height view-state)
+  [view-state]
+  (let [height (get-height view-state)
         y-buffer 10]
     (-> js/d3
         .scaleLinear

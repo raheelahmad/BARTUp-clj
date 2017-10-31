@@ -1,6 +1,11 @@
 (ns bart.views.viz.lifecycle
   (:require cljsjs.d3
+            [reagent.core :as r]
             [bart.views.viz.utils :as u]))
+
+(defonce fetched-at (r/atom 0))
+(def x-center-offset 56)
+(def left-text-type (r/atom :time))
 
 (defn minutes-text [d]
   (let [minutes-str (.-minutes d)
@@ -8,23 +13,52 @@
         minutes (cond
                   (neg? val) (- val)
                   (zero? val) "Leaving"
-                  :else val)
-        ]
+                  :else val)]
     minutes))
+
+(defn time-text [d]
+  (let [val (int (.-minutes d))
+        minutes (if (neg? val) (- val) val)
+        minutes-msecs (* 60000 minutes)
+        offset-date (+ @fetched-at minutes-msecs)
+        date (js/Date. offset-date)
+        time (str (.getHours date) ":" (.getMinutes date))]
+    time))
+
+(defn update-arrival-times []
+  (-> (js/d3.select ".timeline")
+      (.selectAll "g.minute")
+      (.select "text.minute")
+      (.text (fn [d]
+               (if (= @left-text-type :minutes)
+                 (time-text d)
+                 (minutes-text d)
+                 )))))
 
 
 (defn line-name-text [d]
   (let [destination-str (.-destination d)]
     destination-str))
 
-(def x-center-offset 56)
-
 (defn timeline-mount [app-state view-state]
-  (let [etds (:etds app-state)
-        station-name (get-in app-state [:station :name])
-        y-scale (u/y-scale etds view-state)
+  (let [station-name (get-in app-state [:station :name])
+        y-scale (u/y-scale view-state)
         station-y (y-scale 0)
-        station-name-x (+ x-center-offset 130)
+        station-name-x (+ x-center-offset 250)
+        hover-rect (-> (js/d3.select ".timeline")
+                       (.append "rect") (.attr "class" "hover-bg")
+                       (.attr "width" (u/get-width view-state))
+                       (.attr "height" (u/get-height view-state))
+                       (.on "mousemove" (fn [d i]
+                                          (this-as t
+                                            (let [pt (js/d3.mouse t)
+                                                  mouse-x (first pt)
+                                                  new-type (if (> mouse-x x-center-offset)
+                                                             :time :minutes)]
+                                              (when-not (= new-type @left-text-type)
+                                                (reset! left-text-type new-type)
+                                                (update-arrival-times)
+                                                ))))))
         station-marker-g (-> (js/d3.select ".timeline")
                             (.append "g")
                             (.attr "class" "station-marker")
@@ -43,8 +77,8 @@
         station-name-text (-> station-marker-g
                               (.append "text")
                               (.text station-name)
-                              (.attr "x" (+ station-name-x 5))
-                              (.attr "dy" 4)
+                              (.attr "x" station-name-x)
+                              (.attr "dy" -4)
                               )]))
 
 (defn timeline-enter [app-state]
@@ -74,25 +108,22 @@
 
 (defn timeline-update [app-state view-state]
   (let [etds (:etds app-state)
-        y-scale (u/y-scale etds view-state)
+        y-scale (u/y-scale view-state)
         data (u/all-minutes etds)
         gs (-> (js/d3.select ".timeline")
                (.selectAll "g.minute"))
-        minute-texts (-> gs (.select "text.minute"))
-        line-texts (-> gs (.select "text.line-name"))
-        ]
+        line-texts (-> gs (.select "text.line-name"))]
+    (reset! fetched-at (:fetched-at app-state))
     (-> gs
         (.transition (js/d3.transition))
         (.attr "transform"
                   (fn [d _]
                     (let [y (y-scale (.-minutes d))]
                       (str "translate(0, " y ")")))))
-    (-> minute-texts
-        (.text minutes-text))
+    (update-arrival-times)
     (-> line-texts
         (.text line-name-text)
-        )
-        ))
+        )))
 
 (defn timeline-exit [app-state]
   (let [etds (:etds app-state)

@@ -34,7 +34,12 @@
 .station-marker text {
   fill: #AAA;
   font-size: 12px;
+  text-anchor: end;
   font-weight: 600;
+}
+
+.hover-bg {
+  fill-opacity: 0.0;
 }
 
 /* Listing */

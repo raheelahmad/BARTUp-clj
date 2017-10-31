@@ -19,7 +19,7 @@
   {:response-format (ajax/json-response-format {:keywords? true})
    :handler (fn [response]
               (reset! db/refreshing-etds false)
-              (reset! db/station-etds response)
+              (reset! db/station-etds (assoc response :fetched-at (.getTime (js/Date.))))
               (repeat-if-needed)
               )})
 

@@ -1,9 +1,15 @@
 * Tasks
 ** New Layout
-*** WORKING-ON set up horizontal container
-*** TODO set up timeline & list in columns
+*** DONE set up horizontal container
+    CLOSED: [2017-10-29 Sun 21:54]
+*** DONE set up timeline & list in columns
+    CLOSED: [2017-10-29 Sun 21:54]
 ** Timeline
-*** TODO read up on [[https://gadfly361.github.io/gadfly-blog/posts-output/2016-10-22-d3-in-reagent/][D3 in Reagent]]
+*** DONE read up on [[https://gadfly361.github.io/gadfly-blog/posts-output/2016-10-22-d3-in-reagent/][D3 in Reagent]]
+    CLOSED: [2017-10-29 Sun 21:54]
+*** WORKING-ON on hover, change minutes to time
+*** TODO show lines in their colors
+*** TODO on line hover in listing, highlight line minutes in timeline
 ** TODO when can't get location, show station chooser gracefully + warning message
 ** DONE show options to choose a station instead
    CLOSED: [2017-10-20 Fri 22:25]
