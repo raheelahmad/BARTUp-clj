@@ -37,7 +37,6 @@
 ;; Component
 
 (defn viz-did-mount [state]
-  (println state)
   (container-did-mount)
   (timeline-did-mount state)
   )

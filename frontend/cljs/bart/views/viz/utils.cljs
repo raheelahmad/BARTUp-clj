@@ -6,9 +6,10 @@
   (let [width (get-width state)]
     (* 1.5 width)))
 
-(defn line-minutes [{:keys [destination minutes direction]}]
+(defn line-minutes [{:keys [destination minutes direction color]}]
   (reduce #(conj %1 {:minutes (if (= direction "South") (- (int %2)) (int %2))
                      :destination destination
+                     :color color
                      :direction direction})
           [] minutes))
 
@@ -20,7 +21,6 @@
   [etds]
   (let [[north south] (map direction-minutes etds)]
     (concat (->> north (sort-by :minutes))
-            ;; (->> south  sort (map -))
             (->> south (sort-by :minutes))
             )))
 

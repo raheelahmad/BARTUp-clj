@@ -7,9 +7,11 @@
 ** Timeline
 *** DONE read up on [[https://gadfly361.github.io/gadfly-blog/posts-output/2016-10-22-d3-in-reagent/][D3 in Reagent]]
     CLOSED: [2017-10-29 Sun 21:54]
-*** WORKING-ON on hover, change minutes to time
-*** TODO show lines in their colors
-*** TODO on line hover in listing, highlight line minutes in timeline
+*** DONE on hover, change minutes to time
+    CLOSED: [2017-10-30 Mon 22:47]
+*** WORKING-ON show lines in their colors
+    also in the listing
+*** TODO on line hover in listing, highlight line minutes in timeline & vice versa
 ** TODO when can't get location, show station chooser gracefully + warning message
 ** DONE show options to choose a station instead
    CLOSED: [2017-10-20 Fri 22:25]

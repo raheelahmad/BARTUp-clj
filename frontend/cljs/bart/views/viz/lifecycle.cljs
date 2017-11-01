@@ -4,7 +4,7 @@
             [bart.views.viz.utils :as u]))
 
 (defonce fetched-at (r/atom 0))
-(def x-center-offset 56)
+(def x-center-offset 39)
 (def left-text-type (r/atom :time))
 
 (defn minutes-text [d]
@@ -93,7 +93,9 @@
         circles (-> gs
                     (.append "circle")
                     (.attr "cx" x-center-offset)
-                    (.attr "r" 3))
+                    (.attr "r" 4)
+                    (.attr "fill" (fn [d] (.-color d)))
+                    )
         minutes-text (-> gs
                  (.append "text")
                  (.attr "class" "minute")

@@ -17,8 +17,11 @@
   [line-info]
   (let [name (:destination line-info)
         minutes (apply str (interpose ", " (:minutes line-info)))
+        name-comp [:span {:class "line-listing-name"
+                          :style { :background-color (:color line-info)}} name]
+        minutes-comp [:span (str " in " minutes)]
         ]
-    [:li (str name " arrives in " minutes)]))
+    [:li name-comp minutes-comp]))
 
 (defn direction-comp
   "Component for all lines going in a direction"

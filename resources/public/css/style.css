@@ -10,7 +10,7 @@
 /* Timeline */
 
 .minute circle {
-  fill: steelblue;
+  /* stroke: #999; */
 }
 
 .minute {
@@ -46,6 +46,16 @@
 
 .station-name {
   font-weight: 800;
+}
+
+.line-listing-name {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: none;
+  border-radius: 4px;
+  color: #333;
 }
 
 .station-header {

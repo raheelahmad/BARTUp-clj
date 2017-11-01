@@ -49,6 +49,7 @@ type StationJ struct {
 type LineETDJ struct {
 	Destination string   `json:"destination"`
 	Direction   string   `json:"direction"`
+	Color       string   `json:"color"`
 	Minutes     []string `json:"minutes"`
 }
 
@@ -74,6 +75,7 @@ func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
 		}
 		etds = append(etds, LineETDJ{Destination: etd.Destination,
 			Direction: etd.Estimates[0].Direction,
+			Color:     etd.Estimates[0].Hexcolor,
 			Minutes:   estimates,
 		})
 	}
