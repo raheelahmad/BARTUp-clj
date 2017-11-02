@@ -1,10 +1,11 @@
 (ns bart.views.viz.lifecycle
   (:require cljsjs.d3
             [reagent.core :as r]
-            [bart.views.viz.utils :as u]))
+            [bart.views.viz.utils :as u]
+            [bart.data.db :as db]))
 
 (defonce fetched-at (r/atom 0))
-(def x-center-offset 39)
+(def x-center-offset 52)
 (def left-text-type (r/atom :time))
 
 (defn minutes-text [d]
@@ -25,7 +26,13 @@
         time (str (.getHours date) ":" (.getMinutes date))]
     time))
 
-(defn update-arrival-times []
+(defn line-name-text [d]
+  (let [destination-str (.-destination d)]
+    destination-str))
+
+(defn update-arrival-times
+  "Updates the time text (time or mintues) based on assigned datum"
+  []
   (-> (js/d3.select ".timeline")
       (.selectAll "g.minute")
       (.select "text.minute")
@@ -35,30 +42,65 @@
                  (minutes-text d)
                  )))))
 
+(defn update-hovered-line
+  "Updates hovered lines"
+  []
+  (-> (js/d3.select ".timeline")
+      (.selectAll "g.minute")
+      (.select "text.line-name")
+      (.attr "class" (fn [d]
+               (let [line-name (.-destination d)
+                     is-hovered (= line-name @db/hovering-line)]
+                 (if is-hovered "line-name highlighted-line" "line-name")
+                 )))))
 
-(defn line-name-text [d]
-  (let [destination-str (.-destination d)]
-    destination-str))
+(defn hovered [t y-scale]
+  (let [pt (js/d3.mouse t)
+        mouse-x (first pt)
+        mouse-y (second pt)
+        right-of-timeline (> mouse-x x-center-offset)
+        new-type (if right-of-timeline :time :minutes)
+        hovered-minute (.invert y-scale mouse-y)
+        hovered-over-line (->> (js/d3.selectAll "g.minute")
+                               (.data)
+                               (filter (fn [d]
+                                         (let [minutes (.-minutes d)
+                                               distance (js/Math.abs (- minutes hovered-minute))]
+                                           (and (< distance 3)))))
+                               first
+                               )]
+    ;; Toggle arrival time b/w mintues / time if needed
+    (when-not (= new-type @left-text-type)
+      (reset! left-text-type new-type)
+      (update-arrival-times))
+    ;; Set hovered-line value if hovering over one
+    (reset! db/hovering-line (if (nil? hovered-over-line) nil
+                               (.-destination hovered-over-line)))
+    ;; update visual style for hovered
+    (update-hovered-line)
+    ))
 
 (defn timeline-mount [app-state view-state]
   (let [station-name (get-in app-state [:station :name])
         y-scale (u/y-scale view-state)
         station-y (y-scale 0)
         station-name-x (+ x-center-offset 250)
+        ;; To track mouse movement
         hover-rect (-> (js/d3.select ".timeline")
                        (.append "rect") (.attr "class" "hover-bg")
                        (.attr "width" (u/get-width view-state))
                        (.attr "height" (u/get-height view-state))
                        (.on "mousemove" (fn [d i]
                                           (this-as t
-                                            (let [pt (js/d3.mouse t)
-                                                  mouse-x (first pt)
-                                                  new-type (if (> mouse-x x-center-offset)
-                                                             :time :minutes)]
-                                              (when-not (= new-type @left-text-type)
-                                                (reset! left-text-type new-type)
-                                                (update-arrival-times)
-                                                ))))))
+                                            (hovered t y-scale)))))
+
+        _ (add-watch db/hovering-line
+                     :watch-for-hover-from-listings-side
+                     (fn [_ _ _ _]
+                       (update-hovered-line)))
+
+
+        ;; these 4 are for the static station in the middle
         station-marker-g (-> (js/d3.select ".timeline")
                             (.append "g")
                             (.attr "class" "station-marker")

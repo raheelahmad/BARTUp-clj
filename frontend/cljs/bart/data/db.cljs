@@ -6,6 +6,8 @@
 
 (def repeating (atom false))
 
+(defonce hovering-line (r/atom nil))
+
 ;; The three states
 (defonce stations (r/atom nil))
 (defonce station-etds (r/atom nil))

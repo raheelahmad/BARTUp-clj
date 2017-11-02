@@ -15,30 +15,39 @@
 (defn line-comp
   "Component for a single line: an li with the minutes to arrival"
   [line-info]
-  (let [name (:destination line-info)
-        minutes (apply str (interpose ", " (:minutes line-info)))
-        name-comp [:span {:class "line-listing-name"
-                          :style { :background-color (:color line-info)}} name]
-        minutes-comp [:span (str " in " minutes)]
-        ]
-    [:li name-comp minutes-comp]))
+  (fn [line-info]
+    (let [name (:destination line-info)
+          minutes (apply str (interpose ", " (:minutes line-info)))
+          if-hovered-class (if (= @db/hovering-line name) "highlighted-line" "")]
+      ^{:key name}
+      [:li {:class if-hovered-class
+            :on-mouse-over #(reset! db/hovering-line name)
+            :on-mouse-out #(reset! db/hovering-line nil)}
+       [:span {:class "line-listing-name"
+               :style { :background-color (:color line-info)}} name]
+       [:span (str " " minutes)]])))
 
 (defn direction-comp
   "Component for all lines going in a direction"
   [{:keys [direction lines]}]
-  [:div {:class "direction"}
-   [:h4 direction]
-   (into [:ul]
-         (map line-comp lines))])
+  (fn [{:keys [direction lines]}]
+    [:div {:class "direction"}
+     [:h4 direction]
+     [:ul
+      (doall
+       (for [line lines]
+         ^{:key (:destination line)} [line-comp line]))]]))
 
 (defn etds-listing-comp [etds-info]
   "Component for all the listed ETDs"
-  [:div {:class "column"}
-   [:h2 "Listing"]
-   [etd-station-header (:station etds-info)]
-   (into [:div]
-         (map direction-comp (:etds etds-info)))
-   ])
+  (fn [etds-info]
+    [:div {:class "column"}
+     [:h2 "Listing"]
+     [etd-station-header (:station etds-info)]
+     [:div
+      (for [etds (:etds etds-info)]
+        ^{:key (:direction etds)} [direction-comp etds])]
+     ]))
 
 (defn etds-comp
   []
@@ -46,6 +55,5 @@
     [:div {:class "columns"}
      [timeline/timeline etds-info]
      [etds-listing-comp etds-info]
-     ])
-  )
+     ]))
 

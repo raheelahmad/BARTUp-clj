@@ -1,3 +1,8 @@
+body {
+  background-color: #ECEEEF;
+}
+
+
 .horizontal-spacer {
   padding: 10px;
 }
@@ -20,6 +25,7 @@
 
 .line-name {
   text-anchor: start;
+  /* font-variant: small-caps; */
 }
 
 .station-marker circle {
@@ -27,8 +33,8 @@
 }
 
 .station-marker line {
-  stroke: #444;
-  stroke-width: 0.5;
+  stroke: #999;
+  stroke-width: 0.25;
 }
 
 .station-marker text {
@@ -40,6 +46,10 @@
 
 .hover-bg {
   fill-opacity: 0.0;
+}
+
+.highlighted-line {
+  font-weight: 600;
 }
 
 /* Listing */
