@@ -5,7 +5,7 @@
             [bart.data.db :as db]))
 
 (defonce fetched-at (r/atom 0))
-(def x-center-offset 52)
+(def x-center-offset 58)
 (def left-text-type (r/atom :time))
 
 (defn minutes-text [d]
@@ -66,7 +66,7 @@
                                (filter (fn [d]
                                          (let [minutes (.-minutes d)
                                                distance (js/Math.abs (- minutes hovered-minute))]
-                                           (and (< distance 3)))))
+                                           (< distance 3))))
                                first
                                )]
     ;; Toggle arrival time b/w mintues / time if needed
@@ -82,9 +82,28 @@
 
 (defn timeline-mount [app-state view-state]
   (let [station-name (get-in app-state [:station :name])
-        y-scale (u/y-scale view-state)
+        y-scale (u/y-scale app-state view-state)
         station-y (y-scale 0)
         station-name-x (+ x-center-offset 250)
+
+        ;; these 4 are for the static station in the middle
+        station-marker-g (-> (js/d3.select ".timeline")
+                             (.append "g")
+                             (.attr "class" "station-marker")
+                             (.attr "transform" (str "translate(0, " station-y ")"
+                                                     )))
+        station-marker-line (-> station-marker-g
+                                (.append "line")
+                                (.attr "x1" (+ x-center-offset 3))
+                                (.attr "x2" station-name-x)
+                                )
+        station-name-text (-> station-marker-g
+                              (.append "text")
+                              (.text station-name)
+                              (.attr "x" station-name-x)
+                              (.attr "dy" -4)
+                              )
+
         ;; To track mouse movement
         hover-rect (-> (js/d3.select ".timeline")
                        (.append "rect") (.attr "class" "hover-bg")
@@ -99,29 +118,7 @@
                      (fn [_ _ _ _]
                        (update-hovered-line)))
 
-
-        ;; these 4 are for the static station in the middle
-        station-marker-g (-> (js/d3.select ".timeline")
-                            (.append "g")
-                            (.attr "class" "station-marker")
-                            (.attr "transform" (str "translate(0, " station-y ")"
-                                                )))
-        station-marker-circle (-> station-marker-g
-                           (.append "circle")
-                           (.attr "r" 4)
-                           (.attr "cx" x-center-offset)
-                           )
-        station-marker-line (-> station-marker-g
-                                (.append "line")
-                                (.attr "x1" (+ x-center-offset 10))
-                                (.attr "x2" station-name-x)
-                                )
-        station-name-text (-> station-marker-g
-                              (.append "text")
-                              (.text station-name)
-                              (.attr "x" station-name-x)
-                              (.attr "dy" -4)
-                              )]))
+        ]))
 
 (defn timeline-enter [app-state]
   (let [etds (:etds app-state)
@@ -152,8 +149,7 @@
 
 (defn timeline-update [app-state view-state]
   (let [etds (:etds app-state)
-        y-scale (u/y-scale view-state)
-        data (u/all-minutes etds)
+        y-scale (u/y-scale app-state view-state)
         gs (-> (js/d3.select ".timeline")
                (.selectAll "g.minute"))
         line-texts (-> gs (.select "text.line-name"))]

@@ -6,7 +6,7 @@
             [bart.views.viz.utils :as utils]))
 
 (defonce viz-state
-  (r/atom {:width 320}))
+  (r/atom {:width 320 :height 500}))
 
 ;; Timeline-viz
 
@@ -36,7 +36,16 @@
 
 ;; Component
 
-(defn viz-did-mount [state]
+(defn viz-did-mount [this state]
+  (let [width (-> this
+                  r/dom-node
+                  .-parentNode
+                  .-clientWidth)]
+    (swap! viz-state assoc :width width)
+    (-> (js/d3.select "svg")
+        (.attr "width" (utils/get-width @viz-state))
+        (.attr "height" (utils/get-height @viz-state))
+        ))
   (container-did-mount)
   (timeline-did-mount state)
   )
@@ -57,7 +66,7 @@
    {
     :display-name "ETD timeline"
 
-    :component-did-mount #(viz-did-mount state)
+    :component-did-mount (fn [this] (viz-did-mount this state))
     :component-did-update #(viz-did-update)
 
     :reagent-render #(viz-render viz-state)
@@ -69,7 +78,7 @@
 (defn timeline [state]
     (fn [state]
       [:div {:class "column is-half"}
-       [:h2 "Timeline"]
+       ;; [:h2 "Timeline"]
        [viz state]])
     )
 

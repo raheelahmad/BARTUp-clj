@@ -31,18 +31,19 @@
   "Component for all lines going in a direction"
   [{:keys [direction lines]}]
   (fn [{:keys [direction lines]}]
-    [:div {:class "direction"}
-     [:h4 direction]
-     [:ul
-      (doall
-       (for [line lines]
-         ^{:key (:destination line)} [line-comp line]))]]))
+    (if (empty? lines)
+      [:div (str "No trains going " direction)]
+      [:div {:class "direction"}
+       [:h4 (str direction " bound")]
+       [:ul
+        (doall
+         (for [line lines]
+           ^{:key (:destination line)} [line-comp line]))]])))
 
 (defn etds-listing-comp [etds-info]
   "Component for all the listed ETDs"
   (fn [etds-info]
     [:div {:class "column"}
-     [:h2 "Listing"]
      [etd-station-header (:station etds-info)]
      [:div
       (for [etds (:etds etds-info)]
@@ -52,7 +53,7 @@
 (defn etds-comp
   []
   (if-let [etds-info @db/station-etds]
-    [:div {:class "columns"}
+    [:div {:class "columns is-vcentered"}
      [timeline/timeline etds-info]
      [etds-listing-comp etds-info]
      ]))

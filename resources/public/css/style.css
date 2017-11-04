@@ -1,5 +1,5 @@
 body {
-  background-color: #ECEEEF;
+  background-color: #EFFFFF;
 }
 
 
@@ -29,16 +29,16 @@ body {
 }
 
 .station-marker circle {
-  fill: #CC9999;
+  fill: #777;
 }
 
 .station-marker line {
-  stroke: #999;
+  stroke: #333;
   stroke-width: 0.25;
 }
 
 .station-marker text {
-  fill: #AAA;
+  fill: #777;
   font-size: 12px;
   text-anchor: end;
   font-weight: 600;
@@ -46,10 +46,6 @@ body {
 
 .hover-bg {
   fill-opacity: 0.0;
-}
-
-.highlighted-line {
-  font-weight: 600;
 }
 
 /* Listing */
@@ -75,6 +71,14 @@ body {
 .direction {
   margin-top: 20px;
 }
+
+/* Highlighting */
+
+.highlighted-line {
+  font-weight: 600;
+}
+
+/* Others */
 
 .loader {
   border: 3px solid #f3f3f3; /* Light grey */

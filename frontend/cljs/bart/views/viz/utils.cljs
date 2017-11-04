@@ -3,8 +3,7 @@
 (defn get-width [state]
   (:width state))
 (defn get-height [state]
-  (let [width (get-width state)]
-    (* 1.5 width)))
+  (:height state))
 
 (defn line-minutes [{:keys [destination minutes direction color]}]
   (reduce #(conj %1 {:minutes (if (= direction "South") (- (int %2)) (int %2))
@@ -28,12 +27,17 @@
   (-> etds north-south-minutes flatten))
 
 (defn y-scale
-  [view-state]
-  (let [height (get-height view-state)
-        y-buffer 10]
+  [app-state view-state]
+  (let [minutes (or (->> app-state :etds all-minutes (map :minutes))
+                     '(30)) ;; set a default minute so we avoid nil
+        max-pos-minute (apply max minutes)
+        min-minute (apply min minutes) ;; possibly a negative
+        max-value (max max-pos-minute (js/Math.abs min-minute))
+        height (get-height view-state)
+        y-inset 20]
     (-> js/d3
         .scaleLinear
-        (.domain #js [-60 60])
-        (.range #js [y-buffer (- height y-buffer)])
+        (.domain #js [(- max-value) max-value])
+        (.range #js [y-inset (- height y-inset)])
         )))
 
