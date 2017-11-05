@@ -89,7 +89,6 @@
         y-scale (u/y-scale app-state view-state)
         station-y (y-scale 0)
         station-name-x (- (u/get-width view-state) 30)
-        _ (println (:station app-state))
 
         ;; these 4 are for the static station in the middle
         station-marker-g (-> (js/d3.select ".timeline")

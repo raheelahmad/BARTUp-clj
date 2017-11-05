@@ -37,6 +37,7 @@
                    :plugins [[lein-figwheel "0.5.13"]
                              [lein-doo "0.1.7"]]
                    }}
+
   :cljsbuild {:builds
               {:dev {:source-paths ["frontend/cljs"]
                             :figwheel {:on-jsload "bart.core/mount-root"}
@@ -44,14 +45,12 @@
                                        :output-to "resources/public/js/app.js"
                                        :output-dir  "resources/public/js/out"
                                        :asset-path "js/out"
-                                       :source-map-timestamp true}}}
-              {:prod {:source-paths ["frontend/cljs"]
+                                       :source-map-timestamp true}}
+              :prod {:source-paths ["frontend/cljs"]
                      :compiler {:main bart.core
                                 :output-to "resources/public/js/app.js"
-                                :output-dir  "resources/public/js/out"
                                 :asset-path "js/out"
                                 :optimizations :advanced
                                 :pretty-print false
-                                }}}
- 
-              })
+                                }}
+              }})
