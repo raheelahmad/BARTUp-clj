@@ -1,7 +1,7 @@
 (ns bart.data.db
   (:require [reagent.core :as r]))
 
-(def etd-refresh-interval 30000)
+(def etd-refresh-interval 12000)
 (def refreshing-etds (r/atom false))
 
 (def repeating (atom false))

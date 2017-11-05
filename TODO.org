@@ -1,18 +1,27 @@
 * Tasks
-** New Layout
+** TODO Redesign listing
+** TODO Add North/South bound markers
+** TODO Redesign station chooser
+** TODO Pick out better color schemes and fonts
+** TODO Redesign header
+** TODO when can't get location, show station chooser gracefully + warning message
+** DONE New Layout
+   CLOSED: [2017-11-04 Sat 13:00]
 *** DONE set up horizontal container
     CLOSED: [2017-10-29 Sun 21:54]
 *** DONE set up timeline & list in columns
     CLOSED: [2017-10-29 Sun 21:54]
-** Timeline
+** DONE Timeline
+   CLOSED: [2017-11-04 Sat 13:01]
 *** DONE read up on [[https://gadfly361.github.io/gadfly-blog/posts-output/2016-10-22-d3-in-reagent/][D3 in Reagent]]
     CLOSED: [2017-10-29 Sun 21:54]
 *** DONE on hover, change minutes to time
     CLOSED: [2017-10-30 Mon 22:47]
-*** WORKING-ON show lines in their colors
+*** DONE show lines in their colors
+    CLOSED: [2017-11-04 Sat 13:01]
     also in the listing
-*** TODO on line hover in listing, highlight line minutes in timeline & vice versa
-** TODO when can't get location, show station chooser gracefully + warning message
+*** DONE on line hover in listing, highlight line minutes in timeline & vice versa
+    CLOSED: [2017-11-04 Sat 13:01]
 ** DONE show options to choose a station instead
    CLOSED: [2017-10-20 Fri 22:25]
 *** DONE show loading indicator while fetching
