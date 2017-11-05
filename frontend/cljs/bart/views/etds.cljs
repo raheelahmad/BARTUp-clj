@@ -34,8 +34,9 @@
     (if (empty? lines)
       [:div (str "No trains going " direction)]
       [:div {:class "direction"}
-       [:h4 (str direction " bound")]
-       [:ul
+       [:h4 (.toUpperCase direction)
+        [:span {:class "bound"} "bound"]]
+       [:ul {:class "direction-list"}
         (doall
          (for [line lines]
            ^{:key (:destination line)} [line-comp line]))]])))
@@ -44,17 +45,22 @@
   "Component for all the listed ETDs"
   (fn [etds-info]
     [:div {:class "column"}
-     [etd-station-header (:station etds-info)]
      [:div
-      (for [etds (:etds etds-info)]
+      (for [etds (->> etds-info
+                     :etds
+                     (sort-by :direction)
+                     reverse)]
         ^{:key (:direction etds)} [direction-comp etds])]
      ]))
 
 (defn etds-comp
   []
   (if-let [etds-info @db/station-etds]
-    [:div {:class "columns is-vcentered"}
-     [timeline/timeline etds-info]
-     [etds-listing-comp etds-info]
-     ]))
+    [:div
+     [etd-station-header (:station etds-info)]
+     ;; [:div {:style {:text-align "center"}} "Arrivals"]
+     [:div {:class "columns"}
+      [timeline/timeline etds-info]
+      [etds-listing-comp etds-info]
+      ]]))
 

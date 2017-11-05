@@ -31,7 +31,7 @@ func GetETDs(station Station) (*ETDResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewETDResponse(data.ETDs), nil
+	return NewETDResponse(station, data.ETDs), nil
 }
 
 // GetStations Get stations

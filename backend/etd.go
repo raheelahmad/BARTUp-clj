@@ -26,9 +26,11 @@ type ETD struct {
 
 // ETDStationInfo station info
 type ETDStationInfo struct {
-	Name string `xml:"name" json:"name"`
-	Abbr string `xml:"abbr" json:"abbr"`
-	ETDs []ETD  `xml:"etd" json:"etd"`
+	Name    string `xml:"name" json:"name"`
+	Abbr    string `xml:"abbr" json:"abbr"`
+	Address string `xml:"address" json:"address"`
+	City    string `xml:"city" json:"city"`
+	ETDs    []ETD  `xml:"etd" json:"etd"`
 }
 
 // AllETDsData the data
@@ -41,8 +43,10 @@ type AllETDsData struct {
 
 // StationJ for JSON
 type StationJ struct {
-	Name string `json:"name"`
-	Abbr string `json:"abbr"`
+	Name    string `json:"name"`
+	Abbr    string `json:"abbr"`
+	Address string `json:"address"`
+	City    string `json:"city"`
 }
 
 // LineETDJ for JSON
@@ -66,7 +70,7 @@ type ETDResponse struct {
 }
 
 // NewETDResponse init for ETDResponse
-func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
+func NewETDResponse(station Station, etdInfo ETDStationInfo) *ETDResponse {
 	etds := []LineETDJ{}
 	for _, etd := range etdInfo.ETDs {
 		estimates := []string{}
@@ -101,7 +105,12 @@ func NewETDResponse(etdInfo ETDStationInfo) *ETDResponse {
 	}
 
 	return &ETDResponse{
-		Station: StationJ{Name: etdInfo.Name, Abbr: etdInfo.Abbr},
+		Station: StationJ{
+			Name:    station.Name,
+			Abbr:    station.Abbr,
+			Address: station.Address,
+			City:    station.City,
+		},
 		DirectionETDs: []ByDirectionJ{
 			ByDirectionJ{Direction: "North", Lines: northLines},
 			ByDirectionJ{Direction: "South", Lines: southLines},

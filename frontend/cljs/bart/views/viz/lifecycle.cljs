@@ -82,9 +82,14 @@
 
 (defn timeline-mount [app-state view-state]
   (let [station-name (get-in app-state [:station :name])
+        station-address (str (get-in app-state [:station :address])
+                             ", "
+                             (get-in app-state [:station :city])
+                             )
         y-scale (u/y-scale app-state view-state)
         station-y (y-scale 0)
-        station-name-x (+ x-center-offset 250)
+        station-name-x (- (u/get-width view-state) 30)
+        _ (println (:station app-state))
 
         ;; these 4 are for the static station in the middle
         station-marker-g (-> (js/d3.select ".timeline")
@@ -95,14 +100,18 @@
         station-marker-line (-> station-marker-g
                                 (.append "line")
                                 (.attr "x1" (+ x-center-offset 3))
-                                (.attr "x2" station-name-x)
-                                )
+                                (.attr "x2" station-name-x))
+
         station-name-text (-> station-marker-g
-                              (.append "text")
+                              (.append "text") (.attr "class" "name")
                               (.text station-name)
                               (.attr "x" station-name-x)
-                              (.attr "dy" -4)
-                              )
+                              (.attr "dy" -4))
+        station-address-text (-> station-marker-g
+                                 (.append "text") (.attr "class" "address")
+                                 (.attr "x" station-name-x) (.attr "dy" 12)
+                                 (.text station-address)
+                                 )
 
         ;; To track mouse movement
         hover-rect (-> (js/d3.select ".timeline")
@@ -134,6 +143,14 @@
                     (.attr "cx" x-center-offset)
                     (.attr "r" 4)
                     (.attr "fill" (fn [d] (.-color d)))
+                    )
+        border-circles (-> gs
+                    (.append "circle")
+                    (.attr "cx" x-center-offset)
+                    (.attr "r" 5.5)
+                    (.attr "stroke" "#AAA")
+                    (.attr "stroke-width" "1.0")
+                    (.attr "fill" "none")
                     )
         minutes-text (-> gs
                  (.append "text")

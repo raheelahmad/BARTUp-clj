@@ -9,7 +9,7 @@
 ;; -- Component for nearest station selector
 (defn by-station-nearest
   []
-  [:div
+  [:span
    [:button {:on-click (fn [e]
                          (reset! db/refreshing-etds true)
                          (fetcher/fetch-nearest-etd))
@@ -27,7 +27,7 @@
 (defn by-stations-input
   []
   (let [selected (or (-> @db/station-etds :station :abbr) "")]
-    [:div
+    [:span
      [:span {:class "select"}
       (into
        [:select {:on-change (fn [e]
@@ -48,7 +48,7 @@
   []
   [:div
    [by-station-nearest]
-   [:div {:class "or-separator"} "OR"]
+   [:span {:class "or-separator"} " or choose from:"]
    [by-stations-input]
    ]
   )

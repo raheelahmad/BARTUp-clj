@@ -8,8 +8,8 @@ body {
 }
 
 .or-separator {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
+  padding-top: 10px;
 }
 
 /* Timeline */
@@ -25,7 +25,7 @@ body {
 
 .line-name {
   text-anchor: start;
-  /* font-variant: small-caps; */
+  fill: #444;
 }
 
 .station-marker circle {
@@ -37,9 +37,16 @@ body {
   stroke-width: 0.25;
 }
 
-.station-marker text {
+.station-marker .name {
   fill: #777;
-  font-size: 12px;
+  font-size: 14px;
+  text-anchor: end;
+  font-weight: 600;
+}
+
+.station-marker .address {
+  fill: #999;
+  font-size: 11px;
   text-anchor: end;
   font-weight: 600;
 }
@@ -51,7 +58,8 @@ body {
 /* Listing */
 
 .station-name {
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .line-listing-name {
@@ -61,15 +69,28 @@ body {
   padding-bottom: 3px;
   border: none;
   border-radius: 4px;
-  color: #333;
+  color: #444; /* text color for listing */
 }
 
 .station-header {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .direction {
   margin-top: 20px;
+}
+
+ul.direction-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.bound {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
 }
 
 /* Highlighting */
