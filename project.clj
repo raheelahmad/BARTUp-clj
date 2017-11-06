@@ -51,6 +51,7 @@
                                 :output-to "resources/public/js/app.js"
                                 :asset-path "js/out"
                                 :optimizations :advanced
-                                :pretty-print false
+                                :pretty-print true
+                                :pseudo-names true
                                 }}
               }})

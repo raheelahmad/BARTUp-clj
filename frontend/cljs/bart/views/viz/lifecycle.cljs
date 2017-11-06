@@ -9,7 +9,7 @@
 (def left-text-type (r/atom :time))
 
 (defn minutes-text [d]
-  (let [minutes-str (.-minutes d)
+  (let [minutes-str (aget d "minutes")
         val (int minutes-str)
         minutes (cond
                   (neg? val) (- val)
@@ -18,7 +18,7 @@
     minutes))
 
 (defn time-text [d]
-  (let [val (int (.-minutes d))
+  (let [val (int (aget d "minutes"))
         minutes (if (neg? val) (- val) val)
         minutes-msecs (* 60000 minutes)
         offset-date (+ @fetched-at minutes-msecs)
@@ -27,7 +27,7 @@
     time))
 
 (defn line-name-text [d]
-  (let [destination-str (.-destination d)]
+  (let [destination-str (aget d "destination")]
     destination-str))
 
 (defn update-arrival-times
@@ -49,7 +49,7 @@
       (.selectAll "g.minute")
       (.select "text.line-name")
       (.attr "class" (fn [d]
-               (let [line-name (.-destination d)
+               (let [line-name (aget d "destination")
                      is-hovered (= line-name @db/hovering-line)]
                  (if is-hovered "line-name highlighted-line" "line-name")
                  )))))
@@ -64,7 +64,7 @@
         hovered-over-line (->> (js/d3.selectAll "g.minute")
                                (.data)
                                (filter (fn [d]
-                                         (let [minutes (.-minutes d)
+                                         (let [minutes (aget d "minutes")
                                                distance (js/Math.abs (- minutes hovered-minute))]
                                            (< distance 3))))
                                first
@@ -75,7 +75,7 @@
       (update-arrival-times))
     ;; Set hovered-line value if hovering over one
     (reset! db/hovering-line (if (nil? hovered-over-line) nil
-                               (.-destination hovered-over-line)))
+                               (aget hovered-over-line "destination")))
     ;; update visual style for hovered
     (update-hovered-line)
     ))
@@ -141,7 +141,7 @@
                     (.append "circle")
                     (.attr "cx" x-center-offset)
                     (.attr "r" 4)
-                    (.attr "fill" (fn [d] (.-color d)))
+                    (.attr "fill" (fn [d] (aget d "color")))
                     )
         border-circles (-> gs
                     (.append "circle")
@@ -165,16 +165,18 @@
 
 (defn timeline-update [app-state view-state]
   (let [etds (:etds app-state)
-        y-scale (u/y-scale app-state view-state)
         gs (-> (js/d3.select ".timeline")
                (.selectAll "g.minute"))
-        line-texts (-> gs (.select "text.line-name"))]
+        line-texts (-> gs (.select "text.line-name"))
+        y-scale (u/y-scale app-state view-state)]
     (reset! fetched-at (:fetched-at app-state))
     (-> gs
         (.transition (js/d3.transition))
         (.attr "transform"
-                  (fn [d _]
-                    (let [y (y-scale (.-minutes d))]
+                  (fn [d i]
+                    (let [
+                          y (y-scale (aget d "minutes"))
+                          ]
                       (str "translate(0, " y ")")))))
     (update-arrival-times)
     (-> line-texts

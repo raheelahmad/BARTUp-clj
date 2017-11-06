@@ -37,8 +37,8 @@
   (reset! db/station-etds nil)
   (location/get-location
    (fn [found-station-coords]
-     (let [coords (.-coords found-station-coords)
-           lat (.-latitude coords) long (.-longitude coords)]
+     (let [coords (aget found-station-coords "coords")
+           lat (aget coords "latitude") long (aget coords "longitude")]
        (reset! db/source-choice :by-nearest)
        (fetch-location-etd lat long)
        ))))

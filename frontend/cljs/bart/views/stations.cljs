@@ -49,7 +49,5 @@
   [:div
    [by-station-nearest]
    [:span {:class "or-separator"} " or choose from:"]
-   [by-stations-input]
-   ]
-  )
+   [by-stations-input]])
 
