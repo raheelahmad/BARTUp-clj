@@ -4,6 +4,10 @@
             [bart.data.db :as db]
             [bart.views.viz.timeline :as timeline]))
 
+(defn initialize []
+  (timeline/initialize)
+  )
+
 (defn etd-station-header
   "Heading component for a given station"
   [station]

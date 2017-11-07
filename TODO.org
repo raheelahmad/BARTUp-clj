@@ -1,10 +1,11 @@
 * Tasks
-** TODO Redesign listing
-** TODO Add North/South bound markers
-** TODO Redesign station chooser
 ** TODO Pick out better color schemes and fonts
+** TODO Redesign listing
+** TODO Redesign station chooser
 ** TODO Redesign header
 ** TODO when can't get location, show station chooser gracefully + warning message
+** DONE Add North/South bound markers
+   CLOSED: [2017-11-05 Sun 23:31]
 ** DONE New Layout
    CLOSED: [2017-11-04 Sat 13:00]
 *** DONE set up horizontal container

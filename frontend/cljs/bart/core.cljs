@@ -8,6 +8,9 @@
             [bart.views.stations :as station-views]
             ))
 
+(defn initialize []
+  (etd-views/initialize))
+
 (defn root []
   [:div
    [suppl-views/header-comp]
@@ -21,7 +24,8 @@
        )])
 
 (defn mount-root []
-  (r/render [root] (.getElementById js/document "app")))
+  (r/render [root] (.getElementById js/document "app"))
+  (initialize))
 
 (defn ^:export init []
   (fetcher/fetch-stations)

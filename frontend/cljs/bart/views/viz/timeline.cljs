@@ -6,7 +6,12 @@
             [bart.views.viz.utils :as utils]))
 
 (defonce viz-state
-  (r/atom {:width 320 :height 600}))
+  (r/atom {:width 320 :height 500}))
+
+(defn initialize
+  "Currently doesn't do anything. An example of mounting components."
+  []
+)
 
 ;; Timeline-viz
 
