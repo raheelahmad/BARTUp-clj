@@ -24,10 +24,10 @@
           minutes (apply str (interpose ", " (:minutes line-info)))
           if-hovered-class (if (= @db/hovering-line name) "highlighted-line" "")]
       ^{:key name}
-      [:li {:class if-hovered-class
+      [:li {:class "line-listing"
             :on-mouse-over #(reset! db/hovering-line name)
             :on-mouse-out #(reset! db/hovering-line nil)}
-       [:span {:class "line-listing-name"
+       [:span {:class (str "line-listing-name" " " if-hovered-class)
                :style { :background-color (:color line-info)}} name]
        [:span (str " " minutes)]])))
 

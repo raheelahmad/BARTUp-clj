@@ -3,13 +3,17 @@
   src: url('fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.ttf');
 }
 @font-face {
+  font-family: 'Merriweather';
+  src: url('fonts/Merriweather/Merriweather-Regular.ttf');
+}
+@font-face {
   font-family: 'BarlowCondensed';
   src: url('fonts/Barlow_Condensed/BarlowCondensed-Regular.ttf');
 }
 
 body {
   font-family: 'BarlowCondensed';
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(38, 42, 49);
   color: #DDD;
 }
 
@@ -39,10 +43,12 @@ body {
 
 .or-separator {
   display: inline-block;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 6px;
-  font-family: "Georgia", serif;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 7px;
+  color: #333;
+  font-size: 15px;
+  font-family: Merriweather;
 }
 
 /* Arrivals: Timeline & Listing */
@@ -63,7 +69,7 @@ body {
 .line-name {
   text-anchor: start;
   fill: #999;
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'OpenSansBold';
 }
 
@@ -77,14 +83,14 @@ body {
 }
 
 .station-marker .name {
-  fill: #999;
+  fill: #BBB;
   font-size: 15px;
   text-anchor: end;
   font-weight: 600;
 }
 
 .station-marker .address {
-  fill: #888;
+  fill: #AAA;
   font-size: 12px;
   text-anchor: end;
   font-weight: 600;
@@ -108,7 +114,7 @@ body {
   padding-bottom: 3px;
   border: none;
   border-radius: 4px;
-  color: #444; /* text color for listing */
+  color: #333;
 }
 
 .station-header {
@@ -139,7 +145,9 @@ ul.direction-list {
 /* Highlighting */
 
 .highlighted-line {
-  font-weight: 600;
+  font-weight: 800;
+  fill: #FFF;
+  color: #FFF;
 }
 
 /* Others */
