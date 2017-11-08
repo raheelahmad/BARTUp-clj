@@ -60,9 +60,8 @@
 (defn etds-comp
   []
   (if-let [etds-info @db/station-etds]
-    [:div
+    [:div {:class "arrivals"}
      [etd-station-header (:station etds-info)]
-     ;; [:div {:style {:text-align "center"}} "Arrivals"]
      [:div {:class "columns"}
       [timeline/timeline etds-info]
       [etds-listing-comp etds-info]

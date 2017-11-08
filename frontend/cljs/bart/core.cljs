@@ -15,8 +15,6 @@
   [:div
    [suppl-views/header-comp]
    [station-views/stations-choice-comp]
-   [:hr]
-
    (if @db/refreshing-etds
      ; Either loading indicator (if refreshing) OR ETDs-info
      [suppl-views/loading]

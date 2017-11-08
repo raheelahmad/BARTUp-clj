@@ -46,8 +46,9 @@
   "Component to make a choice between
   nearest and a list of stations"
   []
-  [:div
+  [:div {:class "station-choice"}
    [by-station-nearest]
-   [:span {:class "or-separator"} " or choose from:"]
-   [by-stations-input]])
+   [:span {:class "or-separator"} " or "]
+   [by-stations-input]
+   ])
 

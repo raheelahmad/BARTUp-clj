@@ -143,14 +143,6 @@
                     (.attr "r" 4)
                     (.attr "fill" (fn [d] (aget d "color")))
                     )
-        border-circles (-> gs
-                    (.append "circle")
-                    (.attr "cx" x-center-offset)
-                    (.attr "r" 5.5)
-                    (.attr "stroke" "#AAA")
-                    (.attr "stroke-width" "1.0")
-                    (.attr "fill" "none")
-                    )
         minutes-text (-> gs
                  (.append "text")
                  (.attr "class" "minute")
