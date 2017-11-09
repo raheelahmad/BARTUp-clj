@@ -15773,17 +15773,17 @@ function $bart$views$viz$timeline$timeline$$() {
 }
 function $bart$views$etds$line_comp$$() {
   return function($line_info__$1$$) {
-    var $name$jscomp$119$$ = $cljs$core$cst$0kw$0destination$$.$cljs$core$IFn$_invoke$arity$1$($line_info__$1$$), $minutes$jscomp$8$$ = $cljs$core$apply$cljs$0core$0IFn$0_invoke$0arity$02$$($cljs$core$str$$, $cljs$core$drop$cljs$0core$0IFn$0_invoke$0arity$02$$(1, $cljs$core$interleave$$.$cljs$core$IFn$_invoke$arity$2$($cljs$core$repeat$cljs$0core$0IFn$0_invoke$0arity$01$$(", "), $cljs$core$cst$0kw$0minutes$$.$cljs$core$IFn$_invoke$arity$1$($line_info__$1$$)))), $if_hovered_class$$ = $cljs$core$_EQ_$$.$cljs$core$IFn$_invoke$arity$2$($cljs$core$_deref$$($bart$data$db$hovering_line$$), 
-    $name$jscomp$119$$) ? "highlighted-line" : "";
+    var $name$jscomp$119$$ = $cljs$core$cst$0kw$0destination$$.$cljs$core$IFn$_invoke$arity$1$($line_info__$1$$), $minutes$jscomp$8$$ = $cljs$core$apply$cljs$0core$0IFn$0_invoke$0arity$02$$($cljs$core$str$$, $cljs$core$drop$cljs$0core$0IFn$0_invoke$0arity$02$$(1, $cljs$core$interleave$$.$cljs$core$IFn$_invoke$arity$2$($cljs$core$repeat$cljs$0core$0IFn$0_invoke$0arity$01$$(", "), $cljs$core$cst$0kw$0minutes$$.$cljs$core$IFn$_invoke$arity$1$($line_info__$1$$)))), $is_inverted_line$$ = $cljs$core$some$$($cljs$core$PersistentHashSet$createAsIfByAssoc$$([$name$jscomp$119$$]), 
+    new $cljs$core$PersistentVector$$(null, 2, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, ["SFO/Millbrae", "Pittsburg/Bay Point"], null)), $if_hovered_class$$ = $cljs$core$_EQ_$$.$cljs$core$IFn$_invoke$arity$2$($cljs$core$_deref$$($bart$data$db$hovering_line$$), $name$jscomp$119$$) ? $cljs$core$truth_$$($is_inverted_line$$) ? "highlighted-line-inverted" : "highlighted-line" : "";
     return $cljs$core$with_meta$$(new $cljs$core$PersistentVector$$(null, 4, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0li$$, new $cljs$core$PersistentArrayMap$$(null, 3, [$cljs$core$cst$0kw$0class$$, "line-listing", $cljs$core$cst$0kw$0on_DASH_mouse_DASH_over$$, function($line_info__$1$$) {
       return function() {
         return $cljs$core$reset_BANG_$$($bart$data$db$hovering_line$$, $line_info__$1$$);
       };
-    }($name$jscomp$119$$, $minutes$jscomp$8$$, $if_hovered_class$$), $cljs$core$cst$0kw$0on_DASH_mouse_DASH_out$$, function() {
+    }($name$jscomp$119$$, $minutes$jscomp$8$$, $is_inverted_line$$, $if_hovered_class$$), $cljs$core$cst$0kw$0on_DASH_mouse_DASH_out$$, function() {
       return function() {
         return $cljs$core$reset_BANG_$$($bart$data$db$hovering_line$$, null);
       };
-    }($name$jscomp$119$$, $minutes$jscomp$8$$, $if_hovered_class$$)], null), new $cljs$core$PersistentVector$$(null, 3, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0span$$, new $cljs$core$PersistentArrayMap$$(null, 2, [$cljs$core$cst$0kw$0class$$, [$cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$("line-listing-name"), $cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$(" "), $cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$($if_hovered_class$$)].join(""), $cljs$core$cst$0kw$0style$$, 
+    }($name$jscomp$119$$, $minutes$jscomp$8$$, $is_inverted_line$$, $if_hovered_class$$)], null), new $cljs$core$PersistentVector$$(null, 3, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0span$$, new $cljs$core$PersistentArrayMap$$(null, 2, [$cljs$core$cst$0kw$0class$$, [$cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$("line-listing-name"), $cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$(" "), $cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$($if_hovered_class$$)].join(""), $cljs$core$cst$0kw$0style$$, 
     new $cljs$core$PersistentArrayMap$$(null, 1, [$cljs$core$cst$0kw$0background_DASH_color$$, $cljs$core$cst$0kw$0color$$.$cljs$core$IFn$_invoke$arity$1$($line_info__$1$$)], null)], null), $name$jscomp$119$$], null), new $cljs$core$PersistentVector$$(null, 2, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0span$$, [$cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$(" in "), $cljs$core$str$$.$cljs$core$IFn$_invoke$arity$1$($minutes$jscomp$8$$)].join("")], null)], null), new $cljs$core$PersistentArrayMap$$(null, 
     1, [$cljs$core$cst$0kw$0key$$, $name$jscomp$119$$], null));
   };
