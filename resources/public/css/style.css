@@ -68,8 +68,8 @@ body {
 
 .line-name {
   text-anchor: start;
-  fill: #999;
-  font-size: 13px;
+  fill: #AAA;
+  font-size: 15px;
   font-family: 'OpenSansBold';
 }
 
@@ -78,8 +78,9 @@ body {
 }
 
 .timeline-direction {
-  fill: #888;
+  fill: #BBB;
   text-anchor: end;
+  font-style: italic;
 }
 
 /* .timeline-direction */
@@ -153,9 +154,12 @@ ul.direction-list {
 /* Highlighting */
 
 .highlighted-line {
-  /* font-weight: 800; */
   fill: #FFF;
   color: #FFF;
+}
+
+.highlighted-line-inverted {
+  color: #999;
 }
 
 /* Others */
