@@ -90,6 +90,21 @@
         station-y (y-scale 0)
         station-name-x (- (u/get-width view-state) 30)
 
+        direction-bound-texts (let [bound-text (fn [text going-up?]
+                                                 (let
+                                                     [x (if going-up?
+                                                          station-name-x
+                                                          (- station-name-x 11))
+                                                      y (+ (if going-up? 30 -30) station-y)
+                                                      angle (if going-up? (- 90) 90)]
+                                                   (-> (js/d3.select ".timeline")
+                                                       (.append "text") (.attr "class" "timeline-direction")
+                                                       (.attr "transform"
+                                                              (str "translate(" x "," y ")rotate(" angle ")"))
+                                                     (.text (str text " bound →")))))]
+                                (bound-text "North" :yes)
+                                (bound-text "South" nil))
+
         ;; these 4 are for the static station in the middle
         station-marker-g (-> (js/d3.select ".timeline")
                              (.append "g")

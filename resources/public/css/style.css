@@ -77,9 +77,16 @@ body {
   fill: #777;
 }
 
+.timeline-direction {
+  fill: #888;
+  text-anchor: end;
+}
+
+/* .timeline-direction */
+
 .station-marker line {
-  stroke: #666;
-  stroke-width: 0.25;
+  stroke: #FFF;
+  stroke-width: 0.2;
 }
 
 .station-marker .name {
@@ -118,7 +125,8 @@ body {
 }
 
 .station-header {
-  margin: 20px;
+  margin-top: 40px;
+  padding-right: 100px;
   text-align: center;
 }
 
