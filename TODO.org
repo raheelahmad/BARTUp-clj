@@ -1,9 +1,14 @@
 * Tasks
-** TODO Pick out better color schemes and fonts
-** TODO Redesign listing
-** TODO Redesign station chooser
-** TODO Redesign header
+** TODO show ---- in selector when no station is selection
 ** TODO when can't get location, show station chooser gracefully + warning message
+** DONE Redesign listing
+   CLOSED: [2017-11-08 Wed 08:05]
+** DONE Redesign station chooser
+   CLOSED: [2017-11-08 Wed 08:06]
+** DONE Redesign header
+   CLOSED: [2017-11-08 Wed 08:06]
+** DONE Pick out better color schemes and fonts
+   CLOSED: [2017-11-08 Wed 07:59]
 ** DONE Add North/South bound markers
    CLOSED: [2017-11-05 Sun 23:31]
 ** DONE New Layout

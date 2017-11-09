@@ -29,7 +29,7 @@
             :on-mouse-out #(reset! db/hovering-line nil)}
        [:span {:class (str "line-listing-name" " " if-hovered-class)
                :style { :background-color (:color line-info)}} name]
-       [:span (str " " minutes)]])))
+       [:span (str " in " minutes)]])))
 
 (defn direction-comp
   "Component for all lines going in a direction"

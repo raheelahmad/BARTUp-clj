@@ -4,8 +4,8 @@
 (defn header-comp
   []
   [:div {:class "hero top-header"}
-    [:h1 "BART Estimated Time of Departures"]
-    [:h4 "Choose by a station near you or pick any one."
+    [:h2 "BART Estimated Time of Departures"]
+    [:h4 "Choose a station near you or pick any one."
    ]]
   )
 

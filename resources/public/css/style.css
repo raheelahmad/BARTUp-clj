@@ -3,10 +3,6 @@
   src: url('fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.ttf');
 }
 @font-face {
-  font-family: 'Merriweather';
-  src: url('fonts/Merriweather/Merriweather-Regular.ttf');
-}
-@font-face {
   font-family: 'BarlowCondensed';
   src: url('fonts/Barlow_Condensed/BarlowCondensed-Regular.ttf');
 }
@@ -24,17 +20,22 @@ body {
 .top-header {
   background-color: rgb(67, 69, 78);
   text-align: left;
-  padding: 20px;
+  padding-left: 16px;
+  padding-top: 8px;
 }
 
-.top-header h1, .top-header h4 {
+.top-header h2 {
   color: #FFF;
+}
+
+.top-header h4 {
+  color: #AAA;
 }
 
 .station-choice {
   background-color: #BBB;
-  height: 90px;
-  padding: 20px;
+  height: 64px;
+  padding: 15px;
 }
 
 .horizontal-spacer {
@@ -47,8 +48,7 @@ body {
   margin-right: 20px;
   margin-top: 7px;
   color: #333;
-  font-size: 15px;
-  font-family: Merriweather;
+  font-size: 18px;
 }
 
 /* Arrivals: Timeline & Listing */
@@ -145,7 +145,7 @@ ul.direction-list {
 /* Highlighting */
 
 .highlighted-line {
-  font-weight: 800;
+  /* font-weight: 800; */
   fill: #FFF;
   color: #FFF;
 }
@@ -159,6 +159,8 @@ ul.direction-list {
   width: 34px;
   height: 34px;
   animation: spin 2s linear infinite;
+
+  margin-top: 30px;
 }
 @keyframes spin {
   0% { transform: rotate(0deg); }
