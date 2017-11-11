@@ -15918,7 +15918,7 @@ function $bart$views$stations$stations_choice_comp$$() {
 }
 function $bart$views$suppl$footer$$() {
   return new $cljs$core$PersistentVector$$(null, 4, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0div$$, new $cljs$core$PersistentArrayMap$$(null, 1, [$cljs$core$cst$0kw$0class$$, "footer"], null), new $cljs$core$PersistentVector$$(null, 2, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0span$$, "by Raheel Ahmad. A quick "], null), new $cljs$core$PersistentVector$$(null, 3, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0a$$, new $cljs$core$PersistentArrayMap$$(null, 
-  1, [$cljs$core$cst$0kw$0href$$, "https://sakunlabs.com/blog/post/BARTup"], null), "blog post."], null)], null);
+  1, [$cljs$core$cst$0kw$0href$$, "https://sakunlabs.com/blog/post/BARTUp"], null), "blog post."], null)], null);
 }
 function $bart$views$suppl$loading$$() {
   return new $cljs$core$PersistentVector$$(null, 2, 5, $cljs$core$PersistentVector$EMPTY_NODE$$, [$cljs$core$cst$0kw$0div$$, new $cljs$core$PersistentArrayMap$$(null, 1, [$cljs$core$cst$0kw$0class$$, "loader"], null)], null);
