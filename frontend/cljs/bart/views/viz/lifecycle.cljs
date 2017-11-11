@@ -66,7 +66,7 @@
                                (filter (fn [d]
                                          (let [minutes (aget d "minutes")
                                                distance (js/Math.abs (- minutes hovered-minute))]
-                                           (< distance 3))))
+                                           (< distance 2))))
                                first
                                )]
     ;; Toggle arrival time b/w mintues / time if needed

@@ -3,7 +3,8 @@
    CLOSED: [2017-11-08 Wed 22:56]
 ** DONE redirect http → https
    CLOSED: [2017-11-09 Thu 20:16]
-** TODO on launch (when we fetch stations), set a station as default
+** DONE on launch (when we fetch stations), set a station as default
+   CLOSED: [2017-11-10 Fri 20:22]
 ** TODO Add G/A script
 ** TODO Add a link to the blog
 ** TODO Add a link from home page to Blog & BARTUP-cljs
