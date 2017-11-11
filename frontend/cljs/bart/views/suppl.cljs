@@ -9,6 +9,12 @@
    ]]
   )
 
+(defn footer []
+  [:div {:class "footer"}
+   [:span "by Raheel Ahmad. A quick "]
+   [:a {:href "https://sakunlabs.com/blog/post/bartup"} "blog post."]
+   ])
+
 (defn loading
   []
   [:div {:class "loader"}])

@@ -19,7 +19,10 @@
      ; Either loading indicator (if refreshing) OR ETDs-info
      [suppl-views/loading]
      [etd-views/etds-comp]
-       )])
+     )
+   [suppl-views/footer]
+   ]
+  )
 
 (defn mount-root []
   (r/render [root] (.getElementById js/document "app"))

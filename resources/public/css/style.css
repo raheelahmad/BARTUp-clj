@@ -114,6 +114,7 @@ body {
 .station-name {
   font-size: 18px;
   font-weight: 600;
+  color: #FFF;
 }
 
 .line-listing-name {
@@ -180,3 +181,14 @@ ul.direction-list {
   100% { transform: rotate(360deg); }
 }
 
+.footer {
+  font-size: 18px;
+  font-style: italic;
+  text-align: center;
+  color: #999;
+  background-color: rgb(38, 42, 49);
+}
+
+.footer a:hover {
+  color: #FFF;
+}
