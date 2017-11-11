@@ -22,7 +22,12 @@
   (fn [line-info]
     (let [name (:destination line-info)
           minutes (apply str (interpose ", " (:minutes line-info)))
-          is-inverted-line (some #{name} ["SFO/Millbrae" "Pittsburg/Bay Point"])
+          is-inverted-line (some #{name}
+                                 ["SFO/Millbrae"
+                                  "Pittsburg/Bay Point"
+                                  "Pleasant Hill - Limited"
+                                  "SF Airport"
+                                  "Montgomery"])
           if-hovered-class (if (= @db/hovering-line name)
                              (if is-inverted-line "highlighted-line-inverted" "highlighted-line" )
                              "")]

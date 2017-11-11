@@ -20,13 +20,13 @@
 ;; -- Component for stations drop-down selector
 (defn station-select-option
   [station]
-  (let [name (or (:name station) "-")
+  (let [name (or (:name station) "*")
         abbr (:abbreviation station)
         selected (-> @db/station-etds :station :abbr)]
     [:option {:value abbr} name]))
 (defn by-stations-input
   []
-  (let [selected (-> @db/station-etds :station :abbr)]
+  (if-let [selected (-> @db/station-etds :station :abbr)]
     [:span
      [:span {:class "select"}
       (into
@@ -36,8 +36,7 @@
                               (fetcher/fetch-station-etd (-> e .-target .-value)))
                  :value selected}]
        (if-let [stations @db/stations]
-         (map station-select-option (into ["-"] stations))
-         [:option {:value "-"} "-"]
+         (map station-select-option stations)
          ))]
      (if (db/is-by-station-abbr) [checked])
      ]))
