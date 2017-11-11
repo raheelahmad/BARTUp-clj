@@ -46,5 +46,8 @@
 (defn fetch-stations []
   (ajax/GET "/stations" {:response-format (ajax/json-response-format {:keywords? true})
                          :handler (fn [response]
-                                    (reset! db/stations response))}
-            ))
+                                    (reset! db/stations response)
+                                    (reset! db/refreshing-etds true)
+                                    (reset! db/source-choice :by-station-abbr)
+                                    (fetch-station-etd (-> response first :abbreviation)))
+                                    }))
