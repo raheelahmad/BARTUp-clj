@@ -5,9 +5,12 @@
    CLOSED: [2017-11-09 Thu 20:16]
 ** DONE on launch (when we fetch stations), set a station as default
    CLOSED: [2017-11-10 Fri 20:22]
-** TODO Add G/A script
-** TODO Add a link to the blog
-** TODO Add a link from home page to Blog & BARTUP-cljs
+** DONE Add G/A script
+   CLOSED: [2017-11-10 Fri 21:20]
+** DONE Add a link to the blog
+   CLOSED: [2017-11-10 Fri 21:20]
+** DONE Add a link from home page to Blog & BARTUP-cljs
+   CLOSED: [2017-11-11 Sat 09:00]
 ** DONE Redesign listing
    CLOSED: [2017-11-08 Wed 08:05]
 ** DONE Redesign station chooser
