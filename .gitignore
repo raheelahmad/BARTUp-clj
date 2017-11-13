@@ -1,4 +1,5 @@
 stations.dat
+.lein-repl*
 target
 out/
 app.out/
