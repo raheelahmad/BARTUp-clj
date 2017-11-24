@@ -6,7 +6,7 @@
             [bart.views.viz.utils :as utils]))
 
 (defonce viz-state
-  (r/atom {:width 320 :height 500}))
+  (r/atom {:width 320 :height 700}))
 
 (defn initialize
   "Currently doesn't do anything. An example of mounting components."
