@@ -15739,7 +15739,7 @@ function $bart$views$viz$lifecycle$timeline_update$$($app_state$jscomp$3$$) {
   $line_texts$$.text($bart$views$viz$lifecycle$line_name_text$$);
 }
 ;if ("undefined" === typeof $bart$views$viz$timeline$viz_state$$) {
-  var $bart$views$viz$timeline$viz_state$$ = $reagent$ratom$atom$$.$cljs$core$IFn$_invoke$arity$1$(new $cljs$core$PersistentArrayMap$$(null, 2, [$cljs$core$cst$0kw$0width$$, 320, $cljs$core$cst$0kw$0height$$, 500], null));
+  var $bart$views$viz$timeline$viz_state$$ = $reagent$ratom$atom$$.$cljs$core$IFn$_invoke$arity$1$(new $cljs$core$PersistentArrayMap$$(null, 2, [$cljs$core$cst$0kw$0width$$, 320, $cljs$core$cst$0kw$0height$$, 700], null));
 }
 function $bart$views$viz$timeline$timeline_did_update$$($app_state$jscomp$5_data$jscomp$inline_1274_etds$jscomp$inline_1273$$) {
   $bart$views$viz$lifecycle$timeline_enter$$($app_state$jscomp$5_data$jscomp$inline_1274_etds$jscomp$inline_1273$$);
